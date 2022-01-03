@@ -1,0 +1,7 @@
+overwrite: true
+schema: "http://ddheadlesstheme.local/graphql"
+documents: ""
+generates:
+  generated/graphql.ts:
+    plugins:
+      - "typescript"
