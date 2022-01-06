@@ -12,7 +12,156 @@ export type Scalars = {
   Float: number;
 };
 
-/** Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from. */
+/** A Field Group registered by ACF */
+export type AcfFieldGroup = {
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+};
+
+/** ACF Link field */
+export type AcfLink = {
+  __typename?: 'AcfLink';
+  /** The target of the link (_blank, etc) */
+  target?: Maybe<Scalars['String']>;
+  /** The title of the link */
+  title?: Maybe<Scalars['String']>;
+  /** The url of the link */
+  url?: Maybe<Scalars['String']>;
+};
+
+/** The art type */
+export type Art = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
+  __typename?: 'Art';
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of the databaseId field
+   */
+  artId: Scalars['Int'];
+  conditionalTags?: Maybe<ConditionalTags>;
+  /** The content of the post. */
+  content?: Maybe<Scalars['String']>;
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The unique resource identifier path */
+  databaseId: Scalars['Int'];
+  /** Post publishing date. */
+  date?: Maybe<Scalars['String']>;
+  /** The publishing date set in GMT. */
+  dateGmt?: Maybe<Scalars['String']>;
+  /** The desired slug of the post */
+  desiredSlug?: Maybe<Scalars['String']>;
+  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
+  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** The RSS enclosure for the object */
+  enclosure?: Maybe<Scalars['String']>;
+  /** Connection between the ContentNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
+  /** The excerpt of the post. */
+  excerpt?: Maybe<Scalars['String']>;
+  /** Connection between the NodeWithFeaturedImage type and the MediaItem type */
+  featuredImage?: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
+  /** The database identifier for the featured image node assigned to the content node */
+  featuredImageDatabaseId?: Maybe<Scalars['Int']>;
+  /** Globally unique ID of the featured image assigned to the node */
+  featuredImageId?: Maybe<Scalars['ID']>;
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid?: Maybe<Scalars['String']>;
+  /** The globally unique identifier of the arts object. */
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the object is a node in the preview state */
+  isPreview?: Maybe<Scalars['Boolean']>;
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The user that most recently edited the node */
+  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link?: Maybe<Scalars['String']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified?: Maybe<Scalars['String']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt?: Maybe<Scalars['String']>;
+  /** Connection between the art type and the art type */
+  preview?: Maybe<ArtToPreviewConnectionEdge>;
+  /** The database id of the preview node */
+  previewRevisionDatabaseId?: Maybe<Scalars['Int']>;
+  /** Whether the object is a node in the preview state */
+  previewRevisionId?: Maybe<Scalars['ID']>;
+  /** The Yoast SEO data of the art */
+  seo?: Maybe<PostTypeSeo>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug?: Maybe<Scalars['String']>;
+  /** The current status of the object */
+  status?: Maybe<Scalars['String']>;
+  /** The template assigned to a node of content */
+  template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
+  title?: Maybe<Scalars['String']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
+};
+
+
+/** The art type */
+export type ArtContentArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+
+/** The art type */
+export type ArtEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** The art type */
+export type ArtEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** The art type */
+export type ArtExcerptArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+
+/** The art type */
+export type ArtTitleArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+/** The Type of Identifier used to fetch a single resource. Default is ID. */
+export enum ArtIdType {
+  /** Identify a resource by the Database ID. */
+  DatabaseId = 'DATABASE_ID',
+  /** Identify a resource by the (hashed) Global ID. */
+  Id = 'ID',
+  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
+  Slug = 'SLUG',
+  /** Identify a resource by the URI. */
+  Uri = 'URI'
+}
+
+/** Connection between the art type and the art type */
+export type ArtToPreviewConnectionEdge = {
+  __typename?: 'ArtToPreviewConnectionEdge';
+  /** The node of the connection, without the edges */
+  node?: Maybe<Art>;
+};
+
 /** Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from. */
 export type Avatar = {
   __typename?: 'Avatar';
@@ -60,6 +209,9 @@ export type Book = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
    * @deprecated Deprecated in favor of the databaseId field
    */
   bookId: Scalars['Int'];
+  /** Added to the GraphQL Schema because the ACF Field Group &quot;Books Fields&quot; was set to Show in GraphQL. */
+  booksFields?: Maybe<Book_Booksfields>;
+  conditionalTags?: Maybe<ConditionalTags>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
@@ -122,6 +274,7 @@ export type Book = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   status?: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
   /** The unique resource identifier path */
@@ -183,6 +336,28 @@ export type BookToPreviewConnectionEdge = {
   node?: Maybe<Book>;
 };
 
+/** Field Group */
+export type Book_Booksfields = AcfFieldGroup & {
+  __typename?: 'Book_Booksfields';
+  amazonLink?: Maybe<AcfLink>;
+  completionDate?: Maybe<Scalars['String']>;
+  coverImage?: Maybe<MediaItem>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  goodReadsLink?: Maybe<AcfLink>;
+  isComplete?: Maybe<Scalars['Boolean']>;
+  progress?: Maybe<Book_Booksfields_Progress>;
+};
+
+/** Field Group */
+export type Book_Booksfields_Progress = AcfFieldGroup & {
+  __typename?: 'Book_Booksfields_Progress';
+  completePages?: Maybe<Scalars['Float']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  totalPages?: Maybe<Scalars['Float']>;
+};
+
 /** The category type */
 export type Category = DatabaseIdentifier & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'Category';
@@ -195,6 +370,7 @@ export type Category = DatabaseIdentifier & HierarchicalTermNode & MenuItemLinka
   categoryId?: Maybe<Scalars['Int']>;
   /** Connection between the category type and the category type */
   children?: Maybe<CategoryToCategoryConnection>;
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the category type and the ContentNode type */
   contentNodes?: Maybe<CategoryToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -235,6 +411,7 @@ export type Category = DatabaseIdentifier & HierarchicalTermNode & MenuItemLinka
   taxonomy?: Maybe<CategoryToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
   taxonomyName?: Maybe<Scalars['String']>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The ID of the term group that this term object belongs to */
   termGroupId?: Maybe<Scalars['Int']>;
   /** The taxonomy ID that the object is associated with */
@@ -924,8 +1101,58 @@ export enum CommentsConnectionOrderbyEnum {
   UserId = 'USER_ID'
 }
 
+/** GraphQL representation of WordPress Conditional Tags. */
+export type ConditionalTags = {
+  __typename?: 'ConditionalTags';
+  /** Determines whether the query is for an existing archive page. */
+  isArchive?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing attachment page. */
+  isAttachment?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing author archive page. */
+  isAuthor?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing category archive page. */
+  isCategory?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing date archive. */
+  isDate?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing day archive. */
+  isDay?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for the front page of the site. */
+  isFrontPage?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for the blog homepage. */
+  isHome?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing month archive. */
+  isMonth?: Maybe<Scalars['Boolean']>;
+  /** Determines whether this site has more than one author. */
+  isMultiAuthor?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing single page. */
+  isPage?: Maybe<Scalars['Boolean']>;
+  /** Determines whether currently in a page template. */
+  isPageTemplate?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing post type archive page. */
+  isPostTypeArchive?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for a post or page preview. */
+  isPreview?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for the Privacy Policy page. */
+  isPrivacyPolicy?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for a search. */
+  isSearch?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing single post. */
+  isSingle?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing single post of any post type (post, attachment, page, custom post types). */
+  isSingular?: Maybe<Scalars['Boolean']>;
+  /** Determines whether a post is sticky. */
+  isSticky?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing tag archive page. */
+  isTag?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing custom taxonomy archive page. */
+  isTax?: Maybe<Scalars['Boolean']>;
+  /** Determines whether the query is for an existing year archive. */
+  isYear?: Maybe<Scalars['Boolean']>;
+};
+
 /** Nodes used to manage content */
 export type ContentNode = {
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
   /** The ID of the node in the database. */
@@ -974,6 +1201,7 @@ export type ContentNode = {
   status?: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']>;
 };
@@ -1083,6 +1311,7 @@ export type ContentType = Node & UniformResourceIdentifiable & {
   __typename?: 'ContentType';
   /** Whether this content type should can be exported. */
   canExport?: Maybe<Scalars['Boolean']>;
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentType type and the Taxonomy type */
   connectedTaxonomies?: Maybe<ContentTypeToTaxonomyConnection>;
   /** Connection between the ContentType type and the ContentNode type */
@@ -1143,6 +1372,7 @@ export type ContentType = Node & UniformResourceIdentifiable & {
   showInRest?: Maybe<Scalars['Boolean']>;
   /** Whether to generate and allow a UI for managing this content type in the admin. */
   showUi?: Maybe<Scalars['Boolean']>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']>;
 };
@@ -1168,6 +1398,8 @@ export type ContentTypeContentNodesArgs = {
 
 /** Allowed Content Types */
 export enum ContentTypeEnum {
+  /** The Type of Content object */
+  Arts = 'ARTS',
   /** The Type of Content object */
   Attachment = 'ATTACHMENT',
   /** The Type of Content object */
@@ -1316,6 +1548,37 @@ export enum ContentTypesOfTagEnum {
   /** The Type of Content object */
   Post = 'POST'
 }
+
+/** Input for the createArt mutation */
+export type CreateArtInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The content of the object */
+  content?: InputMaybe<Scalars['String']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']>;
+  /** The excerpt of the object */
+  excerpt?: InputMaybe<Scalars['String']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']>;
+};
+
+/** The payload for the createArt mutation */
+export type CreateArtPayload = {
+  __typename?: 'CreateArtPayload';
+  /** The Post object mutation type. */
+  art?: Maybe<Art>;
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>;
+};
 
 /** Input for the createBook mutation */
 export type CreateBookInput = {
@@ -1681,6 +1944,27 @@ export type DefaultTemplate = ContentTemplate & {
   templateName?: Maybe<Scalars['String']>;
 };
 
+/** Input for the deleteArt mutation */
+export type DeleteArtInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** Whether the object should be force deleted instead of being moved to the trash */
+  forceDelete?: InputMaybe<Scalars['Boolean']>;
+  /** The ID of the art to delete */
+  id: Scalars['ID'];
+};
+
+/** The payload for the deleteArt mutation */
+export type DeleteArtPayload = {
+  __typename?: 'DeleteArtPayload';
+  /** The object before it was deleted */
+  art?: Maybe<Art>;
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The ID of the deleted object */
+  deletedId?: Maybe<Scalars['ID']>;
+};
+
 /** Input for the deleteBook mutation */
 export type DeleteBookInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -1950,6 +2234,29 @@ export type GeneralSettings = {
   title?: Maybe<Scalars['String']>;
   /** Site URL. */
   url?: Maybe<Scalars['String']>;
+};
+
+/** Input for the generateAuthorizationCode mutation */
+export type GenerateAuthorizationCodeInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** Email for WordPress user */
+  email?: InputMaybe<Scalars['String']>;
+  /** Password for WordPress user */
+  password?: InputMaybe<Scalars['String']>;
+  /** Username for WordPress user */
+  username?: InputMaybe<Scalars['String']>;
+};
+
+/** The payload for the generateAuthorizationCode mutation */
+export type GenerateAuthorizationCodePayload = {
+  __typename?: 'GenerateAuthorizationCodePayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** Authorization code used for requesting refresh/access tokens */
+  code?: Maybe<Scalars['String']>;
+  /** Error encountered during user authentication, if any */
+  error?: Maybe<Scalars['String']>;
 };
 
 /** Content node with hierarchical (parent/child) relationships */
@@ -2225,6 +2532,7 @@ export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNo
   commentStatus?: Maybe<Scalars['String']>;
   /** Connection between the mediaItem type and the Comment type */
   comments?: Maybe<MediaItemToCommentConnection>;
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
   /** The unique identifier stored in the database */
@@ -2304,6 +2612,7 @@ export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNo
   status?: Maybe<Scalars['String']>;
   /** The template assigned to the node */
   template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
   /** The unique resource identifier path */
@@ -2688,7 +2997,7 @@ export enum MenuItemNodeIdTypeEnum {
 }
 
 /** Deprecated in favor of MenuItemLinkeable Interface */
-export type MenuItemObjectUnion = Book | Category | Page | Post | Tag;
+export type MenuItemObjectUnion = Art | Book | Category | Page | Post | Tag;
 
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = {
@@ -2738,8 +3047,12 @@ export type MenuItemToMenuItemLinkableConnectionEdge = {
 
 /** Registered menu locations */
 export enum MenuLocationEnum {
+  /** Put the menu in the footer location */
+  Footer = 'FOOTER',
   /** Put the menu in the main-nav location */
-  MainNav = 'MAIN_NAV'
+  MainNav = 'MAIN_NAV',
+  /** Put the menu in the primary location */
+  Primary = 'PRIMARY'
 }
 
 /** The Type of Identifier used to fetch a single node. Default is "ID". To be used along with the "id" field. */
@@ -3023,6 +3336,7 @@ export type NodeWithExcerptExcerptArgs = {
 
 /** A node that can have a featured image set */
 export type NodeWithFeaturedImage = {
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
   /** The unique identifier stored in the database */
@@ -3077,6 +3391,7 @@ export type NodeWithFeaturedImage = {
   status?: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']>;
 };
@@ -3182,6 +3497,7 @@ export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & 
   commentStatus?: Maybe<Scalars['String']>;
   /** Connection between the page type and the Comment type */
   comments?: Maybe<PageToCommentConnection>;
+  conditionalTags?: Maybe<ConditionalTags>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
@@ -3267,6 +3583,7 @@ export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & 
   status?: Maybe<Scalars['String']>;
   /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
   /** The unique resource identifier path */
@@ -3581,6 +3898,7 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   commentStatus?: Maybe<Scalars['String']>;
   /** Connection between the post type and the Comment type */
   comments?: Maybe<PostToCommentConnection>;
+  conditionalTags?: Maybe<ConditionalTags>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
@@ -3664,6 +3982,7 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   tags?: Maybe<PostToTagConnection>;
   /** The template assigned to a node of content */
   template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Connection between the post type and the TermNode type */
   terms?: Maybe<PostToTermNodeConnection>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
@@ -3793,6 +4112,7 @@ export type PostCategoriesNodeInput = {
 /** The postFormat type */
 export type PostFormat = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'PostFormat';
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the postFormat type and the ContentNode type */
   contentNodes?: Maybe<PostFormatToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -3832,6 +4152,7 @@ export type PostFormat = DatabaseIdentifier & Node & TermNode & UniformResourceI
   taxonomy?: Maybe<PostFormatToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
   taxonomyName?: Maybe<Scalars['String']>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The ID of the term group that this term object belongs to */
   termGroupId?: Maybe<Scalars['Int']>;
   /** The taxonomy ID that the object is associated with */
@@ -4902,6 +5223,8 @@ export type RestoreCommentPayload = {
 /** The root mutation */
 export type RootMutation = {
   __typename?: 'RootMutation';
+  /** The payload for the createArt mutation */
+  createArt?: Maybe<CreateArtPayload>;
   /** The payload for the createBook mutation */
   createBook?: Maybe<CreateBookPayload>;
   /** The payload for the createCategory mutation */
@@ -4920,6 +5243,8 @@ export type RootMutation = {
   createTag?: Maybe<CreateTagPayload>;
   /** The payload for the createUser mutation */
   createUser?: Maybe<CreateUserPayload>;
+  /** The payload for the deleteArt mutation */
+  deleteArt?: Maybe<DeleteArtPayload>;
   /** The payload for the deleteBook mutation */
   deleteBook?: Maybe<DeleteBookPayload>;
   /** The payload for the deleteCategory mutation */
@@ -4938,6 +5263,8 @@ export type RootMutation = {
   deleteTag?: Maybe<DeleteTagPayload>;
   /** The payload for the deleteUser mutation */
   deleteUser?: Maybe<DeleteUserPayload>;
+  /** The payload for the generateAuthorizationCode mutation */
+  generateAuthorizationCode?: Maybe<GenerateAuthorizationCodePayload>;
   /** Increase the count. */
   increaseCount?: Maybe<Scalars['Int']>;
   /** The payload for the registerUser mutation */
@@ -4948,6 +5275,8 @@ export type RootMutation = {
   restoreComment?: Maybe<RestoreCommentPayload>;
   /** The payload for the sendPasswordResetEmail mutation */
   sendPasswordResetEmail?: Maybe<SendPasswordResetEmailPayload>;
+  /** The payload for the updateArt mutation */
+  updateArt?: Maybe<UpdateArtPayload>;
   /** The payload for the updateBook mutation */
   updateBook?: Maybe<UpdateBookPayload>;
   /** The payload for the UpdateCategory mutation */
@@ -4968,6 +5297,12 @@ export type RootMutation = {
   updateTag?: Maybe<UpdateTagPayload>;
   /** The payload for the updateUser mutation */
   updateUser?: Maybe<UpdateUserPayload>;
+};
+
+
+/** The root mutation */
+export type RootMutationCreateArtArgs = {
+  input: CreateArtInput;
 };
 
 
@@ -5026,6 +5361,12 @@ export type RootMutationCreateUserArgs = {
 
 
 /** The root mutation */
+export type RootMutationDeleteArtArgs = {
+  input: DeleteArtInput;
+};
+
+
+/** The root mutation */
 export type RootMutationDeleteBookArgs = {
   input: DeleteBookInput;
 };
@@ -5080,6 +5421,12 @@ export type RootMutationDeleteUserArgs = {
 
 
 /** The root mutation */
+export type RootMutationGenerateAuthorizationCodeArgs = {
+  input: GenerateAuthorizationCodeInput;
+};
+
+
+/** The root mutation */
 export type RootMutationIncreaseCountArgs = {
   count?: InputMaybe<Scalars['Int']>;
 };
@@ -5106,6 +5453,12 @@ export type RootMutationRestoreCommentArgs = {
 /** The root mutation */
 export type RootMutationSendPasswordResetEmailArgs = {
   input: SendPasswordResetEmailInput;
+};
+
+
+/** The root mutation */
+export type RootMutationUpdateArtArgs = {
+  input: UpdateArtInput;
 };
 
 
@@ -5173,6 +5526,15 @@ export type RootQuery = {
   __typename?: 'RootQuery';
   /** Entry point to get all settings for the site */
   allSettings?: Maybe<Settings>;
+  /** An object of the art Type.  */
+  art?: Maybe<Art>;
+  /**
+   * A art object
+   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
+   */
+  artBy?: Maybe<Art>;
+  /** Connection between the RootQuery type and the art type */
+  arts?: Maybe<RootQueryToArtConnection>;
   /** An object of the book Type.  */
   book?: Maybe<Book>;
   /**
@@ -5289,6 +5651,33 @@ export type RootQuery = {
   viewer?: Maybe<User>;
   /** Fields of the &#039;WritingSettings&#039; settings group */
   writingSettings?: Maybe<WritingSettings>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryArtArgs = {
+  asPreview?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  idType?: InputMaybe<ArtIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryArtByArgs = {
+  artId?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['ID']>;
+  slug?: InputMaybe<Scalars['String']>;
+  uri?: InputMaybe<Scalars['String']>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryArtsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<RootQueryToArtConnectionWhereArgs>;
 };
 
 
@@ -5669,6 +6058,97 @@ export type RootQueryUsersArgs = {
   last?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<RootQueryToUserConnectionWhereArgs>;
 };
+
+/** Connection between the RootQuery type and the art type */
+export type RootQueryToArtConnection = {
+  __typename?: 'RootQueryToArtConnection';
+  /** Edges for the RootQueryToArtConnection connection */
+  edges?: Maybe<Array<Maybe<RootQueryToArtConnectionEdge>>>;
+  /** The nodes of the connection, without the edges */
+  nodes?: Maybe<Array<Maybe<Art>>>;
+  /** Information about pagination in a connection. */
+  pageInfo?: Maybe<WpPageInfo>;
+};
+
+/** An edge in a connection */
+export type RootQueryToArtConnectionEdge = {
+  __typename?: 'RootQueryToArtConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']>;
+  /** The item at the end of the edge */
+  node?: Maybe<Art>;
+};
+
+/** Arguments for filtering the RootQueryToArtConnection connection */
+export type RootQueryToArtConnectionWhereArgs = {
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']>;
+  /** Specific ID of the object */
+  id?: InputMaybe<Scalars['Int']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** What paramater to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  taxQuery?: InputMaybe<RootQueryToArtConnectionWhereArgsTaxQuery>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type RootQueryToArtConnectionWhereArgsTaxArray = {
+  field?: InputMaybe<RootQueryToArtConnectionWhereArgsTaxQueryField>;
+  /** Whether or not to include children for hierarchical taxonomies. Defaults to false to improve performance (note that this is opposite of the default for WP_Query). */
+  includeChildren?: InputMaybe<Scalars['Boolean']>;
+  operator?: InputMaybe<RootQueryToArtConnectionWhereArgsTaxQueryOperator>;
+  taxonomy?: InputMaybe<TaxonomyEnum>;
+  /** A list of term slugs */
+  terms?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+/** Query objects based on taxonomy parameters */
+export type RootQueryToArtConnectionWhereArgsTaxQuery = {
+  relation?: InputMaybe<RelationEnum>;
+  taxArray?: InputMaybe<Array<InputMaybe<RootQueryToArtConnectionWhereArgsTaxArray>>>;
+};
+
+/** Which field to select taxonomy term by. Default value is "term_id" */
+export enum RootQueryToArtConnectionWhereArgsTaxQueryField {
+  Id = 'ID',
+  Name = 'NAME',
+  Slug = 'SLUG',
+  TaxonomyId = 'TAXONOMY_ID'
+}
+
+export enum RootQueryToArtConnectionWhereArgsTaxQueryOperator {
+  And = 'AND',
+  Exists = 'EXISTS',
+  In = 'IN',
+  NotExists = 'NOT_EXISTS',
+  NotIn = 'NOT_IN'
+}
 
 /** Connection between the RootQuery type and the book type */
 export type RootQueryToBookConnection = {
@@ -6918,6 +7398,7 @@ export type SeoContentTypeArchive = {
 /** The Yoast SEO search appearance content types */
 export type SeoContentTypes = {
   __typename?: 'SEOContentTypes';
+  art?: Maybe<SeoContentType>;
   book?: Maybe<SeoContentType>;
   mediaItem?: Maybe<SeoContentType>;
   page?: Maybe<SeoContentType>;
@@ -7157,6 +7638,7 @@ export type Settings = {
 /** The tag type */
 export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'Tag';
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the tag type and the ContentNode type */
   contentNodes?: Maybe<TagToContentNodeConnection>;
   /** The number of objects connected to the object */
@@ -7196,6 +7678,7 @@ export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Unif
   taxonomy?: Maybe<TagToTaxonomyConnectionEdge>;
   /** The name of the taxonomy that the object is associated with */
   taxonomyName?: Maybe<Scalars['String']>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The ID of the term group that this term object belongs to */
   termGroupId?: Maybe<Scalars['Int']>;
   /** The taxonomy ID that the object is associated with */
@@ -7597,6 +8080,7 @@ export type TaxonomyToContentTypeConnectionEdge = {
 
 /** Terms are nodes within a Taxonomy, used to group and relate other nodes. */
 export type TermNode = {
+  conditionalTags?: Maybe<ConditionalTags>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
   /** Identifies the primary key from the database. */
@@ -7623,6 +8107,7 @@ export type TermNode = {
   slug?: Maybe<Scalars['String']>;
   /** The name of the taxonomy that the object is associated with */
   taxonomyName?: Maybe<Scalars['String']>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The ID of the term group that this term object belongs to */
   termGroupId?: Maybe<Scalars['Int']>;
   /** The taxonomy ID that the object is associated with */
@@ -7753,18 +8238,73 @@ export type ThemeSettings = {
   __typename?: 'ThemeSettings';
   pageSlug?: Maybe<Scalars['String']>;
   pageTitle?: Maybe<Scalars['String']>;
+  /** Added to the GraphQL Schema because the ACF Field Group &quot;Theme Settings&quot; was set to Show in GraphQL. */
+  themeSettings?: Maybe<ThemeSettings_Themesettings>;
+};
+
+/** Field Group */
+export type ThemeSettings_Themesettings = AcfFieldGroup & {
+  __typename?: 'ThemeSettings_Themesettings';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  siteLogo?: Maybe<MediaItem>;
+  socialLinks?: Maybe<ThemeSettings_Themesettings_SocialLinks>;
+};
+
+/** Field Group */
+export type ThemeSettings_Themesettings_SocialLinks = AcfFieldGroup & {
+  __typename?: 'ThemeSettings_Themesettings_SocialLinks';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  goodReads?: Maybe<AcfLink>;
+  instgram?: Maybe<AcfLink>;
 };
 
 /** Any node that has a URI */
 export type UniformResourceIdentifiable = {
+  conditionalTags?: Maybe<ConditionalTags>;
   /** The unique resource identifier path */
   id: Scalars['ID'];
   /** Whether the node is a Content Node */
   isContentNode: Scalars['Boolean'];
   /** Whether the node is a Term */
   isTermNode: Scalars['Boolean'];
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']>;
+};
+
+/** Input for the updateArt mutation */
+export type UpdateArtInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The content of the object */
+  content?: InputMaybe<Scalars['String']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']>;
+  /** The excerpt of the object */
+  excerpt?: InputMaybe<Scalars['String']>;
+  /** The ID of the art object */
+  id: Scalars['ID'];
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']>;
+};
+
+/** The payload for the updateArt mutation */
+export type UpdateArtPayload = {
+  __typename?: 'UpdateArtPayload';
+  /** The Post object mutation type. */
+  art?: Maybe<Art>;
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>;
 };
 
 /** Input for the updateBook mutation */
@@ -8158,6 +8698,7 @@ export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdenti
   capabilities?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Connection between the User type and the Comment type */
   comments?: Maybe<UserToCommentConnection>;
+  conditionalTags?: Maybe<ConditionalTags>;
   /** Identifies the primary key from the database. */
   databaseId: Scalars['Int'];
   /** Description of the user. */
@@ -8206,6 +8747,7 @@ export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdenti
   seo?: Maybe<SeoUser>;
   /** The slug for the user. This field is equivalent to WP_User-&gt;user_nicename */
   slug?: Maybe<Scalars['String']>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']>;
   /** A website url that is associated with the user. */
