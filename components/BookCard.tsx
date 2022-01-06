@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Book } from '../generated/graphql';
 import Link from 'next/link';
+import { DEFAULT_FEATURED } from '../lib/constants';
 
 const StyledCard = styled.div`
     display: flex;
@@ -24,12 +25,13 @@ export default function BookCard({
     featuredImage,
     excerpt,
 }: Book) {
+    const cardImage = featuredImage || DEFAULT_FEATURED;
     return (
         <StyledCard>
-            {featuredImage?.node?.mediaItemUrl && (
+            {cardImage?.node?.mediaItemUrl && (
                 <Image
-                    src={featuredImage.node.mediaItemUrl}
-                    alt={featuredImage.node.altText || title || 'Book Image'}
+                    src={cardImage.node.mediaItemUrl}
+                    alt={cardImage.node.altText || title || 'Book Image'}
                     height={300}
                     width={300}
                     objectFit={'cover'}

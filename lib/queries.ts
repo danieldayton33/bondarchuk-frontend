@@ -1,5 +1,6 @@
 import { gql, request } from 'graphql-request';
 import { getQueryUri } from './utils';
+import { BOOKS_FIELDS } from './fragments';
 
 export async function getHomePage() {
     return await request(
@@ -28,15 +29,7 @@ export async function getAllBooks({ first = 10 }) {
             query getAllBooks($first: Int) {
                 books(first: $first) {
                     nodes {
-                        title
-                        slug
-                        featuredImage {
-                            node {
-                                altText
-                                mediaItemUrl
-                            }
-                        }
-                        excerpt
+                        ${BOOKS_FIELDS}
                     }
                 }
             }
@@ -55,21 +48,7 @@ export async function getBookBySlug({ slug = '' }) {
         gql`
             query getBookBySlug($id: ID!) {
                 book(id: $id, idType: SLUG) {
-                    title
-                    seo {
-                        fullHead
-                        metaDesc
-                        title
-                    }
-                    featuredImage {
-                        node {
-                            altText
-                            mediaItemUrl
-                        }
-                    }
-                    date
-                    content
-                    slug
+                    ${BOOKS_FIELDS}
                 }
             }
         `,
