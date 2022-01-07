@@ -11,7 +11,7 @@ const StyledButton = styled.span`
     padding: 1rem 2rem;
     transition: 0.25s;
     &:hover {
-        background: var(--color-ternary);
+        background: var(--color-quaternary);
         transition: 0.25s;
     }
 `;
