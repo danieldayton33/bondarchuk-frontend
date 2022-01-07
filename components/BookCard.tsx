@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Book } from '../generated/graphql';
 import Link from 'next/link';
 import { DEFAULT_FEATURED } from '../lib/constants';
+import Button from './Button';
 
 const StyledCard = styled.div`
     display: flex;
@@ -44,7 +45,9 @@ export default function BookCard({
                 )}
                 {
                     <Link href={`/books/${slug}`}>
-                        <a title={`Read More about ${title}`}>Read More</a>
+                        <a title={`Read More about ${title}`}>
+                            <Button>Read More</Button>
+                        </a>
                     </Link>
                 }
             </div>

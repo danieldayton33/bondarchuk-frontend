@@ -1,8 +1,13 @@
-import { getAllBooks } from '../../lib/queries';
+import { getAllBooks, getMenu, getThemeSettings } from '../../lib/queries';
 import { useQuery } from 'react-query';
-import { Book } from '../../generated/graphql';
+import {
+    Book,
+    MenuItem,
+    ThemeSettings_Themesettings,
+} from '../../generated/graphql';
 import BookCard from '../../components/BookCard';
 import styled from 'styled-components';
+import Page from '../../components/Page';
 
 const BookWrap = styled.div`
     display: grid;
@@ -11,30 +16,43 @@ const BookWrap = styled.div`
     max-width: 1200px;
     margin: 5rem auto;
 `;
+
 interface Props {
     books: Array<Book>;
+    menuItems: Array<MenuItem>;
+    themeSettings: ThemeSettings_Themesettings;
 }
-export default function Books({ books }: Props) {
+export default function Books({ books, menuItems, themeSettings }: Props) {
     const { data } = useQuery('all-books', () => getAllBooks({ first: 10 }), {
         initialData: books,
         notifyOnChangeProps: 'tracked',
     });
-
     return (
-        <BookWrap>
-            {data.length &&
-                data.map((book: Book, i: number) => (
-                    <BookCard key={`book-${i}`} {...book} />
-                ))}
-        </BookWrap>
+        <Page
+            title={'Books'}
+            seo={null}
+            menuItems={menuItems}
+            themeSettings={themeSettings}
+        >
+            <BookWrap>
+                {data &&
+                    data.map((book: Book, i: number) => (
+                        <BookCard key={`book-${i}`} {...book} />
+                    ))}
+            </BookWrap>
+        </Page>
     );
 }
 
 export async function getStaticProps() {
     const books = await getAllBooks({ first: 10 });
+    const menuItems = await getMenu();
+    const themeSettings = await getThemeSettings();
     return {
         props: {
+            themeSettings,
             books,
+            menuItems: menuItems,
         },
         revalidate: 300,
     };
