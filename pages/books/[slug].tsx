@@ -114,7 +114,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-    const { books } = await getAllBooks({ first: 20 });
+    const books = await getAllBooks({ first: 20 });
 
     return {
         paths: books.map((book: Book) => `/books/${book.slug}`) || [],
