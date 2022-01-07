@@ -1,13 +1,31 @@
-import { getAllBooks, getBookBySlug } from '../../lib/queries';
+import {
+    getAllBooks,
+    getBookBySlug,
+    getMenu,
+    getThemeSettings,
+} from '../../lib/queries';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Book } from '../../generated/graphql';
+import {
+    Book,
+    MenuItem,
+    ThemeSettings_Themesettings,
+} from '../../generated/graphql';
 import { GetStaticPropsContext } from 'next';
 import { useQuery } from 'react-query';
 import Page from '../../components/Page';
 import ProgressBar from '../../components/ProgressBar';
+import Button from '../../components/Button';
 
-export default function SingleBook({ bookData }: { bookData: Book }) {
+export default function SingleBook({
+    bookData,
+    menuItems,
+    themeSettings,
+}: {
+    bookData: Book;
+    menuItems: Array<MenuItem>;
+    themeSettings: ThemeSettings_Themesettings;
+}) {
     const { data } = useQuery(
         `book-${bookData.slug}`,
         async () => await getBookBySlug({ slug: bookData.slug || '' }),
@@ -27,7 +45,13 @@ export default function SingleBook({ bookData }: { bookData: Book }) {
         coverImage,
     } = booksFields || {};
     return (
-        <Page featuredImage={featuredImage} title={title} seo={seo}>
+        <Page
+            featuredImage={featuredImage}
+            title={title}
+            seo={seo}
+            menuItems={menuItems}
+            themeSettings={themeSettings}
+        >
             {coverImage && coverImage?.mediaItemUrl && (
                 <Image
                     height={400}
@@ -43,7 +67,7 @@ export default function SingleBook({ bookData }: { bookData: Book }) {
                         target={amazonLink.target || '_self'}
                         title={amazonLink.title || 'Amazon Link'}
                     >
-                        Buy Now
+                        <Button>Buy Now</Button>
                     </a>
                 </Link>
             )}
@@ -53,7 +77,7 @@ export default function SingleBook({ bookData }: { bookData: Book }) {
                         target={goodReadsLink.target || '_self'}
                         title={goodReadsLink.title || 'Good Reads Link'}
                     >
-                        Good Reads
+                        <Button>Good Reads</Button>
                     </a>
                 </Link>
             )}
@@ -81,14 +105,16 @@ export async function getStaticProps({
 }) {
     const slug = params.slug;
     const bookData = await getBookBySlug({ slug: slug });
+    const menuItems = await getMenu();
+    const themeSettings = await getThemeSettings();
     return {
-        props: { bookData },
+        props: { bookData, menuItems, themeSettings },
         revalidate: 300,
     };
 }
 
 export async function getStaticPaths() {
-    const books = await getAllBooks({ first: 20 });
+    const { books } = await getAllBooks({ first: 20 });
 
     return {
         paths: books.map((book: Book) => `/books/${book.slug}`) || [],

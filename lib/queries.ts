@@ -1,6 +1,6 @@
 import { gql, request } from 'graphql-request';
 import { getQueryUri } from './utils';
-import { BOOKS_FIELDS } from './fragments';
+import { BOOKS_FIELDS, MENU_QUERY, THEME_SETTINGS } from './fragments';
 
 export async function getHomePage() {
     return await request(
@@ -22,6 +22,11 @@ export async function getHomePage() {
         `,
     );
 }
+
+export async function getMenu() {
+    const data = await request(getQueryUri(), MENU_QUERY);
+    return data?.menu?.menuItems?.nodes;
+}
 export async function getAllBooks({ first = 10 }) {
     const data = await request(
         getQueryUri(),
@@ -38,11 +43,11 @@ export async function getAllBooks({ first = 10 }) {
             first: first,
         },
     );
+
     return data?.books?.nodes;
 }
 
 export async function getBookBySlug({ slug = '' }) {
-    console.log(slug);
     const data = await request(
         getQueryUri(),
         gql`
@@ -55,4 +60,9 @@ export async function getBookBySlug({ slug = '' }) {
         { id: slug },
     );
     return data?.book;
+}
+
+export async function getThemeSettings() {
+    const data = await request(getQueryUri(), THEME_SETTINGS);
+    return data?.themeSettings?.themeSettings;
 }

@@ -1,5 +1,8 @@
 import Image from 'next/image';
-import { NodeWithFeaturedImageToMediaItemConnectionEdge } from '../generated/graphql';
+import {
+    Maybe,
+    NodeWithFeaturedImageToMediaItemConnectionEdge,
+} from '../generated/graphql';
 import styled from 'styled-components';
 import { DEFAULT_FEATURED } from '../lib/constants';
 
@@ -24,7 +27,7 @@ const StyledHeader = styled.header`
     }
 `;
 interface Props {
-    featuredImage: NodeWithFeaturedImageToMediaItemConnectionEdge;
+    featuredImage: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
     title: String;
 }
 export default function Header({ featuredImage, title }: Props) {
