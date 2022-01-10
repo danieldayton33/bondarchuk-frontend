@@ -10,6 +10,8 @@ const StyledButton = styled.span`
     font-weight: 900;
     padding: 1rem 2rem;
     transition: 0.25s;
+    box-shadow: var(--shadow-elevation-low);
+    border-radius: 2rem;
     &:hover {
         background: var(--color-quaternary);
         transition: 0.25s;

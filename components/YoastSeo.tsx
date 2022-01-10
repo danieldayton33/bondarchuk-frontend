@@ -5,14 +5,17 @@ import parse from 'html-react-parser';
 export default function YoastSeo({ seo }: { seo: PostTypeSeo }) {
     const { title: seoTitle, fullHead, metaDesc } = seo;
     const parsedHead = fullHead ? parse(fullHead) : null;
+
     return (
         <>
             {seoTitle && fullHead && (
                 <Head>
-                    <title>{seoTitle}</title>
+                    <title>
+                        {seoTitle || process.env.NEXT_PUBLIC_CMS_NAME}
+                    </title>
                     <meta
                         name="description"
-                        content={metaDesc || 'Jillian Site'}
+                        content={metaDesc || process.env.NEXT_PUBLIC_CMS_NAME}
                     />
                     {parsedHead && parsedHead}
                 </Head>

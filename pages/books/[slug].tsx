@@ -16,6 +16,15 @@ import { useQuery } from 'react-query';
 import Page from '../../components/Page';
 import ProgressBar from '../../components/ProgressBar';
 import Button from '../../components/Button';
+import Grid from '../../components/Grid';
+import styled from 'styled-components';
+import GridItem from '../../components/GridItem';
+import { ParsedUrlQuery } from 'querystring';
+
+const BookWrap = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
 
 export default function SingleBook({
     bookData,
@@ -52,58 +61,75 @@ export default function SingleBook({
             menuItems={menuItems}
             themeSettings={themeSettings}
         >
-            {coverImage && coverImage?.mediaItemUrl && (
-                <Image
-                    height={400}
-                    width={300}
-                    objectFit={'contain'}
-                    src={coverImage.mediaItemUrl}
-                    alt={coverImage.altText || `Cover Image for ${title}`}
-                />
-            )}
-            {amazonLink?.url && (
-                <Link href={amazonLink.url} passHref={true}>
-                    <a
-                        target={amazonLink.target || '_self'}
-                        title={amazonLink.title || 'Amazon Link'}
-                    >
-                        <Button>Buy Now</Button>
-                    </a>
-                </Link>
-            )}
-            {goodReadsLink?.url && (
-                <Link href={goodReadsLink.url} passHref={true}>
-                    <a
-                        target={goodReadsLink.target || '_self'}
-                        title={goodReadsLink.title || 'Good Reads Link'}
-                    >
-                        <Button>Good Reads</Button>
-                    </a>
-                </Link>
-            )}
-            {!isComplete && progress?.completePages && progress?.totalPages && (
-                <ProgressBar
-                    totalPages={progress.totalPages}
-                    completePages={progress.completePages}
-                />
-            )}
-            {completionDate && (
-                <div>
-                    {isComplete ? 'Publish Date' : 'Expected Release'}:{' '}
-                    {completionDate}
-                </div>
-            )}
-            {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
+            <Grid columns={3}>
+                <GridItem>
+                    {coverImage && coverImage?.mediaItemUrl && (
+                        <Image
+                            height={400}
+                            width={300}
+                            objectFit={'contain'}
+                            src={coverImage.mediaItemUrl}
+                            alt={
+                                coverImage.altText || `Cover Image for ${title}`
+                            }
+                        />
+                    )}
+                    <BookWrap>
+                        {amazonLink?.url && (
+                            <Link href={amazonLink.url} passHref={true}>
+                                <a
+                                    target={amazonLink.target || '_self'}
+                                    title={amazonLink.title || 'Amazon Link'}
+                                >
+                                    <Button>Buy Now</Button>
+                                </a>
+                            </Link>
+                        )}
+                        {goodReadsLink?.url && (
+                            <Link href={goodReadsLink.url} passHref={true}>
+                                <a
+                                    target={goodReadsLink.target || '_self'}
+                                    title={
+                                        goodReadsLink.title || 'Good Reads Link'
+                                    }
+                                >
+                                    <Button>Good Reads</Button>
+                                </a>
+                            </Link>
+                        )}
+                    </BookWrap>
+
+                    {!isComplete &&
+                        progress?.completePages &&
+                        progress?.totalPages && (
+                            <ProgressBar
+                                totalPages={progress.totalPages}
+                                completePages={progress.completePages}
+                            />
+                        )}
+                    {completionDate && (
+                        <div>
+                            {isComplete ? 'Publish Date' : 'Expected Release'}:{' '}
+                            {completionDate}
+                        </div>
+                    )}
+                </GridItem>
+                {content && (
+                    <GridItem span={2}>
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
+                    </GridItem>
+                )}
+            </Grid>
         </Page>
     );
 }
 
-export async function getStaticProps({
-    params,
-}: {
-    params: GetStaticPropsContext;
-}) {
-    const slug = params.slug;
+interface IParams extends ParsedUrlQuery {
+    slug: string;
+}
+export async function getStaticProps(context: GetStaticPropsContext) {
+    const slug = context?.params?.slug as unknown as IParams;
+    // @ts-ignore
     const bookData = await getBookBySlug({ slug: slug });
     const menuItems = await getMenu();
     const themeSettings = await getThemeSettings();

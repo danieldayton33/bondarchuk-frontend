@@ -9,8 +9,8 @@ const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 7px;
-    background: linear-gradient(45deg, #cacaca, #f0f0f0);
-    box-shadow: 29px -29px 58px #cecece, -29px 29px 58px #f2f2f2;
+    box-shadow: var(--shadow-elevation-medium);
+    background: var(--color-secondary);
     h2 {
         font-family: var(--font-highlight), cursive;
         font-size: 3rem;
@@ -26,9 +26,16 @@ export default function BookCard({
     featuredImage,
     excerpt,
 }: Book) {
+    function handleClick() {
+        const base = process.env.NEXT_PUBLIC_VERCEL_URL + '/books/';
+        if (slug) {
+            const url = new URL(slug, base);
+            window.open(url.href, '_self');
+        }
+    }
     const cardImage = featuredImage || DEFAULT_FEATURED;
     return (
-        <StyledCard>
+        <StyledCard onClick={handleClick}>
             {cardImage?.node?.mediaItemUrl && (
                 <Image
                     src={cardImage.node.mediaItemUrl}

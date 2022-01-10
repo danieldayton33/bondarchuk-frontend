@@ -1,10 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MenuItem, ThemeSettings_Themesettings } from '../generated/graphql';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoodreads } from '@fortawesome/free-brands-svg-icons';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
+import SocialLinks from './SocialLinks';
 
 const StyledNav = styled.nav`
     padding: 2rem;
@@ -25,44 +23,16 @@ const StyledNav = styled.nav`
         }
     }
 `;
-const StyledFontAwesome = styled(FontAwesomeIcon)`
-    color: var(--white);
-    margin-right: 1rem;
-    &:hover {
-        color: var(--color-secondary);
-    }
-`;
+
 interface Props {
     themeSettings?: ThemeSettings_Themesettings;
     menuItems?: Array<MenuItem>;
 }
 export default function Nav({ menuItems, themeSettings }: Props) {
     const { siteLogo, socialLinks } = themeSettings || {};
-    const { instgram, goodReads } = socialLinks || {};
     return (
         <StyledNav>
-            <div>
-                {goodReads && goodReads.url && (
-                    <Link href={goodReads.url}>
-                        <a
-                            title={goodReads.title || 'Good Reads'}
-                            target={goodReads.target || '_self'}
-                        >
-                            <StyledFontAwesome icon={faGoodreads} />
-                        </a>
-                    </Link>
-                )}
-                {instgram && instgram.url && (
-                    <Link href={instgram.url}>
-                        <a
-                            title={instgram.title || 'Instagram'}
-                            target={instgram.target || '_self'}
-                        >
-                            <StyledFontAwesome icon={faInstagram} />
-                        </a>
-                    </Link>
-                )}
-            </div>
+            <SocialLinks socialLinks={socialLinks} />
             <Link href={'/'}>
                 <a title={'Home'} style={{ textAlign: 'center' }}>
                     {siteLogo && siteLogo?.mediaItemUrl ? (
