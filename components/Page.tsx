@@ -12,6 +12,7 @@ import { ReactNode } from 'react';
 import { useQuery } from 'react-query';
 import { getMenu, getThemeSettings } from '../lib/queries';
 import Nav from './Nav';
+import Footer from './Footer';
 
 const Wrapper = styled.div`
     max-width: 80rem;
@@ -51,6 +52,7 @@ export default function Page({
                 <Nav themeSettings={theme} menuItems={menu} />
                 <Header featuredImage={featuredImage} title={title} />
                 <Wrapper>{children}</Wrapper>
+                <Footer themeSettings={themeSettings} menuItems={menu} />
             </main>
         </>
     );

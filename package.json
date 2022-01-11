@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@react-spring/web": "^9.3.0",
     "@types/next-nprogress": "^1.4.1",
+    "@wordpress/block-library": "^6.0.18",
     "graphql": "^16.2.0",
     "graphql-request": "^3.7.0",
     "html-react-parser": "^1.4.4",
@@ -21,6 +23,7 @@
     "nprogress": "^0.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-intersection-observer": "^8.33.1",
     "react-query": "^3.34.7",
     "styled-components": "^5.3.3"
   },

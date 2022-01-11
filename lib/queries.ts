@@ -2,12 +2,12 @@ import { gql, request } from 'graphql-request';
 import { getQueryUri } from './utils';
 import { BOOKS_FIELDS, MENU_QUERY, THEME_SETTINGS } from './fragments';
 
-export async function getHomePage() {
-    return await request(
+export async function getPage({ uri = '' }) {
+    const data = await request(
         getQueryUri(),
         gql`
-            query HomePageQuery {
-                nodeByUri(uri: "/") {
+            query PageQuery($uri: String!) {
+                nodeByUri(uri: $uri) {
                     __typename
                     ... on ContentType {
                         id
@@ -16,11 +16,27 @@ export async function getHomePage() {
                     ... on Page {
                         id
                         title
+                        content
+                        featuredImage {
+                            node {
+                                altText
+                                mediaItemUrl
+                            }
+                        }
+                        slug
+                        title
+                        seo {
+                            title
+                            metaDesc
+                            fullHead
+                        }
                     }
                 }
             }
         `,
+        { uri: uri },
     );
+    return data?.nodeByUri;
 }
 
 export async function getMenu() {
@@ -65,4 +81,20 @@ export async function getBookBySlug({ slug = '' }) {
 export async function getThemeSettings() {
     const data = await request(getQueryUri(), THEME_SETTINGS);
     return data?.themeSettings?.themeSettings;
+}
+
+export async function getAllPages() {
+    const data = await request(
+        getQueryUri(),
+        gql`
+            query getAllPages {
+                pages(first: 10) {
+                    nodes {
+                        slug
+                    }
+                }
+            }
+        `,
+    );
+    return data?.pages?.nodes;
 }

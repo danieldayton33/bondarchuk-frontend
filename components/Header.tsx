@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40rem;
+    height: 30rem;
     position: relative;
     h1 {
         z-index: 2;
@@ -27,8 +27,8 @@ const StyledHeader = styled.header`
     }
 `;
 interface Props {
-    featuredImage: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
-    title: String;
+    featuredImage?: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
+    title?: Maybe<String>;
 }
 export default function Header({ featuredImage, title }: Props) {
     const headerImage = featuredImage || DEFAULT_FEATURED;
