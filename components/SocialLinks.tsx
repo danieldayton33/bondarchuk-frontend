@@ -11,8 +11,12 @@ const StyledFontAwesome = styled(FontAwesomeIcon)`
     color: var(--white);
     margin-right: 1rem;
     &:hover {
-        color: var(--color-secondary);
+        color: var(--color-secondary-100);
     }
+`;
+const SocialWrap = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `;
 export default function SocialLinks({
     socialLinks,
@@ -21,7 +25,7 @@ export default function SocialLinks({
 }) {
     const { instgram, goodReads } = socialLinks || {};
     return (
-        <div>
+        <SocialWrap>
             {goodReads && goodReads.url && (
                 <Link href={goodReads.url}>
                     <a
@@ -42,6 +46,6 @@ export default function SocialLinks({
                     </a>
                 </Link>
             )}
-        </div>
+        </SocialWrap>
     );
 }

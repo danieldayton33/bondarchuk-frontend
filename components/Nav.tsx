@@ -32,23 +32,6 @@ export default function Nav({ menuItems, themeSettings }: Props) {
     const { siteLogo, socialLinks } = themeSettings || {};
     return (
         <StyledNav>
-            <SocialLinks socialLinks={socialLinks} />
-            <Link href={'/'}>
-                <a title={'Home'} style={{ textAlign: 'center' }}>
-                    {siteLogo && siteLogo?.mediaItemUrl ? (
-                        <Image
-                            src={siteLogo.mediaItemUrl}
-                            alt={siteLogo.altText || 'Jillian Site'}
-                            height={80}
-                            width={200}
-                            objectFit={'contain'}
-                        />
-                    ) : (
-                        'Home'
-                    )}
-                </a>
-            </Link>
-
             {menuItems && (
                 <div>
                     {menuItems.map((link, i) => {
@@ -66,6 +49,23 @@ export default function Nav({ menuItems, themeSettings }: Props) {
                     })}
                 </div>
             )}
+
+            <Link href={'/'}>
+                <a title={'Home'} style={{ textAlign: 'center' }}>
+                    {siteLogo && siteLogo?.mediaItemUrl ? (
+                        <Image
+                            src={siteLogo.mediaItemUrl}
+                            alt={siteLogo.altText || 'Jillian Site'}
+                            height={80}
+                            width={200}
+                            objectFit={'contain'}
+                        />
+                    ) : (
+                        'Home'
+                    )}
+                </a>
+            </Link>
+            <SocialLinks socialLinks={socialLinks} />
         </StyledNav>
     );
 }
