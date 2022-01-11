@@ -10,7 +10,9 @@ const StyledCard = styled.div`
     flex-direction: column;
     border-radius: 7px;
     box-shadow: var(--shadow-elevation-medium);
-    background: var(--color-secondary);
+    background: var(--color-ternary);
+    color: var(--white);
+    transition: 0.5s;
     h2 {
         font-family: var(--font-highlight), cursive;
         font-size: 3rem;
@@ -18,6 +20,12 @@ const StyledCard = styled.div`
     }
     .card-body {
         padding: 2rem;
+    }
+    &:hover {
+        cursor: pointer;
+        box-shadow: var(--shadow-elevation-high);
+        transition: 0.5s;
+        transform: scale(1.01);
     }
 `;
 export default function BookCard({

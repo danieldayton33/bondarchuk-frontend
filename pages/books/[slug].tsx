@@ -25,6 +25,11 @@ const BookWrap = styled.div`
     display: flex;
     justify-content: space-between;
 `;
+const CoverWrap = styled(GridItem)`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
 
 export default function SingleBook({
     bookData,
@@ -62,7 +67,7 @@ export default function SingleBook({
             themeSettings={themeSettings}
         >
             <Grid columns={3}>
-                <GridItem>
+                <CoverWrap>
                     {coverImage && coverImage?.mediaItemUrl && (
                         <Image
                             height={400}
@@ -113,7 +118,7 @@ export default function SingleBook({
                             {completionDate}
                         </div>
                     )}
-                </GridItem>
+                </CoverWrap>
                 {content && (
                     <GridItem span={2}>
                         <div dangerouslySetInnerHTML={{ __html: content }} />

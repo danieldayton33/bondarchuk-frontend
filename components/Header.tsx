@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40rem;
+    height: 30rem;
     position: relative;
     h1 {
         z-index: 2;

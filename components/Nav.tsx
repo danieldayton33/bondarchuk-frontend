@@ -18,7 +18,7 @@ const StyledNav = styled.nav`
         font-weight: 700;
         transition: 0.25s;
         &:hover {
-            color: var(--color-quaternary);
+            color: var(--color-secondary-100);
             transition: 0.25s;
         }
     }

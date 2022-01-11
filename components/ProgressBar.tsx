@@ -13,7 +13,7 @@ const StyledProgress = styled.div`
 `;
 const StyledSpan = styled.div`
     border-radius: 2rem;
-    background: var(--color-quaternary);
+    background: var(--color-secondary-100);
     box-shadow: var(--shadow-elevation-low);
     height: 2rem;
     position: absolute;

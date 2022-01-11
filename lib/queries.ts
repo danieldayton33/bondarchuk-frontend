@@ -36,7 +36,6 @@ export async function getPage({ uri = '' }) {
         `,
         { uri: uri },
     );
-    console.log(data);
     return data?.nodeByUri;
 }
 
@@ -82,4 +81,20 @@ export async function getBookBySlug({ slug = '' }) {
 export async function getThemeSettings() {
     const data = await request(getQueryUri(), THEME_SETTINGS);
     return data?.themeSettings?.themeSettings;
+}
+
+export async function getAllPages() {
+    const data = await request(
+        getQueryUri(),
+        gql`
+            query getAllPages {
+                pages(first: 10) {
+                    nodes {
+                        slug
+                    }
+                }
+            }
+        `,
+    );
+    return data?.pages?.nodes;
 }

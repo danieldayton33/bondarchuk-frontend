@@ -13,7 +13,7 @@ export default function Footer({
     const { siteLogo, socialLinks } = themeSettings || {};
     return (
         <footer>
-            <Grid columns={3} background={'var(--color-quaternary)'}>
+            <Grid columns={3} background={'var(--color-primary)'}>
                 <GridItem>
                     <SocialLinks socialLinks={socialLinks} />
                 </GridItem>

@@ -13,7 +13,7 @@ const StyledButton = styled.span`
     box-shadow: var(--shadow-elevation-low);
     border-radius: 2rem;
     &:hover {
-        background: var(--color-quaternary);
+        background: var(--color-primary-100);
         transition: 0.25s;
     }
 `;
