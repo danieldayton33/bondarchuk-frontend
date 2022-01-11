@@ -10,20 +10,12 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30rem;
+    height: 35rem;
     position: relative;
     h1 {
         z-index: 2;
         color: var(--white);
         font-size: clamp(2.5rem, 4vw + 1rem, 7.5rem);
-    }
-    &:before {
-        position: absolute;
-        content: '';
-        height: 100%;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: 1;
     }
 `;
 interface Props {
