@@ -14,8 +14,12 @@ const StyledHeader = styled.header`
     position: relative;
     h1 {
         z-index: 2;
+        text-transform: uppercase;
+        letter-spacing: 0.75rem;
         color: var(--white);
-        font-size: clamp(2.5rem, 4vw + 1rem, 7.5rem);
+        font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
+        text-align: center;
+        line-height: 5rem;
     }
 `;
 interface Props {

@@ -6,12 +6,14 @@ const StyledButton = styled.span`
     margin: 2rem 0;
     background: var(--color-primary);
     color: var(--white);
-    text-transform: uppercase;
     font-weight: 900;
     padding: 1rem 2rem;
     transition: 0.25s;
     box-shadow: var(--shadow-elevation-low);
     border-radius: 2rem;
+    font-family: var(--font-highlight), cursive;
+    letter-spacing: 0.15rem;
+    line-height: 1rem;
     &:hover {
         background: var(--color-primary-100);
         transition: 0.25s;

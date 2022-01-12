@@ -17,6 +17,7 @@ const StyledCard = styled.div`
         font-family: var(--font-highlight), cursive;
         font-size: 3rem;
         font-weight: 700;
+        line-height: 4rem;
     }
     .card-body {
         padding: 2rem;

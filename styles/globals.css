@@ -1,7 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap');
-
+@font-face {
+    font-family: Wallington-Pro;
+    src: url("/fonts/wallington-pro-webfont.eot")format('eot'),
+    url("/fonts/wallington-pro-webfont.ttf")format('ttf'),
+    url("/fonts/wallington-pro-webfont.woff")format('woff'),
+    url("/fonts/wallington-pro-webfont.woff2")format('woff2');
+    font-weight: normal;
+}
 :root{
-  --font-highlight: 'MedievalSharp';
+  --font-highlight: Wallington-Pro;
   --font-body: 'Zen Maru Gothic';
   --color-primary-100: #115146;
   --color-primary: #03382F;
