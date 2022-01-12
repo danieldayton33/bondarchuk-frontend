@@ -32,7 +32,7 @@ export default function SocialLinks({
                         title={goodReads.title || 'Good Reads'}
                         target={goodReads.target || '_self'}
                     >
-                        <StyledFontAwesome icon={faGoodreads} />
+                        <StyledFontAwesome size="2x" icon={faGoodreads} />
                     </a>
                 </Link>
             )}
@@ -42,7 +42,7 @@ export default function SocialLinks({
                         title={instgram.title || 'Instagram'}
                         target={instgram.target || '_self'}
                     >
-                        <StyledFontAwesome icon={faInstagram} />
+                        <StyledFontAwesome size="2x" icon={faInstagram} />
                     </a>
                 </Link>
             )}

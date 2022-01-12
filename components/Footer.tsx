@@ -9,9 +9,7 @@ import styled from 'styled-components';
 const LinkWrap = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 2rem;
     ul {
         list-style-type: none;
     }
