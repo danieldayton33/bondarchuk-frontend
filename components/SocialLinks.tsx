@@ -11,7 +11,7 @@ const StyledFontAwesome = styled(FontAwesomeIcon)`
     color: var(--white);
     margin-right: 1rem;
     &:hover {
-        color: var(--color-secondary-100);
+        color: var(--color-ternary-100);
     }
 `;
 const SocialWrap = styled.div`

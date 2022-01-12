@@ -17,8 +17,10 @@ const StyledNav = styled.nav`
         padding: 1rem 2rem;
         font-weight: 700;
         transition: 0.25s;
+        font-family: var(--font-highlight), cursive;
+        letter-spacing: 0.15rem;
         &:hover {
-            color: var(--color-secondary-100);
+            color: var(--color-ternary-100);
             transition: 0.25s;
         }
     }

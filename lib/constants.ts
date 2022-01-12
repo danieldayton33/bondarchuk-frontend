@@ -1,6 +1,6 @@
 export const DEFAULT_FEATURED = {
     node: {
         altText: 'Forest Background',
-        mediaItemUrl: '/images/key.jpg',
+        mediaItemUrl: '/images/key_scaled.jpg',
     },
 };
