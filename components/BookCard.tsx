@@ -4,6 +4,7 @@ import { Book } from '../generated/graphql';
 import Link from 'next/link';
 import { DEFAULT_FEATURED } from '../lib/constants';
 import Button from './Button';
+import { useRouter } from 'next/router';
 
 const StyledCard = styled.div`
     display: flex;
@@ -34,21 +35,26 @@ export default function BookCard({
     slug,
     featuredImage,
     excerpt,
+    booksFields,
 }: Book) {
+    const router = useRouter();
     function handleClick() {
         const base = process.env.NEXT_PUBLIC_VERCEL_URL + '/books/';
         if (slug) {
             const url = new URL(slug, base);
-            window.open(url.href, '_self');
+            router.push(url.href);
         }
     }
-    const cardImage = featuredImage || DEFAULT_FEATURED;
+    const cardImage =
+        booksFields?.coverImage ||
+        featuredImage?.node ||
+        DEFAULT_FEATURED?.node;
     return (
         <StyledCard onClick={handleClick}>
-            {cardImage?.node?.mediaItemUrl && (
+            {cardImage?.mediaItemUrl && (
                 <Image
-                    src={cardImage.node.mediaItemUrl}
-                    alt={cardImage.node.altText || title || 'Book Image'}
+                    src={cardImage.mediaItemUrl}
+                    alt={cardImage.altText || title || 'Book Image'}
                     height={300}
                     width={300}
                     objectFit={'cover'}
