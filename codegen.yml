@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://ddheadlesstheme.local/graphql"
+schema: "http://bondarchuk-admin.local/graphql"
 documents: ""
 generates:
   generated/graphql.ts:

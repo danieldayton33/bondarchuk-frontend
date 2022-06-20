@@ -3,15 +3,21 @@ import Link from 'next/link';
 import { MenuItem, ThemeSettings_Themesettings } from '../generated/graphql';
 import styled from 'styled-components';
 import SocialLinks from './SocialLinks';
+import classNames from 'classnames';
 
 const StyledNav = styled.nav`
-    padding: 2rem;
+    padding: 4rem 0;
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     width: 100%;
     z-index: 10;
+    max-width: ${(props) => props.theme.breakpoints.xxl};
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     .nav-link {
         color: var(--white);
         padding: 1rem 2rem;
@@ -24,13 +30,23 @@ const StyledNav = styled.nav`
             transition: 0.25s;
         }
     }
+    .logo-link {
+        &__home {
+            display: none !important;
+        }
+    }
 `;
 
 interface Props {
     themeSettings?: ThemeSettings_Themesettings;
     menuItems?: Array<MenuItem>;
+    isFrontPage?: boolean;
 }
-export default function Nav({ menuItems, themeSettings }: Props) {
+export default function Nav({
+    menuItems,
+    themeSettings,
+    isFrontPage = false,
+}: Props) {
     const { siteLogo, socialLinks } = themeSettings || {};
     return (
         <StyledNav>
@@ -61,6 +77,10 @@ export default function Nav({ menuItems, themeSettings }: Props) {
                             height={80}
                             width={200}
                             objectFit={'contain'}
+                            className={classNames({
+                                'logo-link': true,
+                                'logo-link__home': isFrontPage,
+                            })}
                         />
                     ) : (
                         'Home'

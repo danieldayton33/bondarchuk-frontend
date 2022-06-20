@@ -7,18 +7,24 @@
     url("/fonts/wallington-pro-webfont.woff2")format('woff2');
     font-weight: normal;
 }
+@font-face {
+    font-family: LucilleScript;
+    src: url("/fonts/LucilleScript-Regular.otf")format('otf'),
+    url("/fonts/LucilleScript-Regular.ttf")format('ttf'),
+    url("/fonts/LucilleScript-Regular.woff")format('woff');
+    font-weight: normal;
+}
 :root{
   --font-highlight: Wallington-Pro;
   --font-body: 'Zen Maru Gothic';
-  --color-primary-100: #115146;
-  --color-primary: #03382F;
-  --color-primary-500: #00221C;
-  --color-secondary-100: #4D2F73;
-  --color-secondary: #1F083C;
-  --color-scondary-500: #110224;
-  --color-ternary-100: #7A7F1B;
-  --color-ternary: #535805;
-  --color-ternary-500: #333500;
+  --font-cursive: LucilleScript;
+  --color-primary: #3C3153;
+  --color-primary--hex: 60, 49, 83;
+  --color-secondary: #395B50;
+  --color-ternary-100: #00000029;
+  --color-ternary: #B2B2B2;
+  --color-ternary-500: #00000073;
+  --black: #000000;
   --white: #ffffff;
   --shadow-color: 44deg 100% 4%;
   --shadow-elevation-low:
@@ -41,20 +47,19 @@
           25px 50px 62.9px -2.5px hsl(var(--shadow-color) / 0.34);
 }
 
-html,
+html {
+    font-size: 62.5%;
+}
 body {
   padding: 0;
   margin: 0;
   font-family: var(--font-body), sans-serif;
-  font-size: 1rem;
-    background-image: url('/images/distressed2.png');
-    background-color: var(--white);
-    background-position: center;
+  font-size: 1.6rem;
+  line-height: 1.5;
+    background: url('/images/paper-texture-bg-image.png');
 }
 
-h1 {
-  font-family: var(--font-highlight), cursive;
-}
+
 
 a {
   color: inherit;
@@ -63,4 +68,15 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.bold {
+    font-weight: 700;
+}
+.bg-image {
+    z-index: -1;
+}
+.text-center {
+    text-align: center;
+    margin: 0 auto;
 }

@@ -91,3 +91,79 @@ export const BOOKS_FIELDS = `
                 fullHead
             }
 `;
+
+export const PageSectionFragment = gql`
+    fragment PageSectionFragment on Page {
+        PageSections {
+            pageSections {
+                __typename
+                ... on Page_Pagesections_PageSections_TextColumns {
+                    columns {
+                        content
+                        columnLink {
+                            url
+                            title
+                            target
+                        }
+                    }
+                    title
+                    preTitle
+                }
+                ... on Page_Pagesections_PageSections_Cta {
+                    content
+                    link {
+                        url
+                        title
+                        target
+                    }
+                    columnImage {
+                        altText
+                        mediaItemUrl
+                    }
+                    backgroundImage {
+                        altText
+                        mediaItemUrl
+                    }
+                }
+                ... on Page_Pagesections_PageSections_Books {
+                    books {
+                        ... on Book {
+                            title
+                            uri
+                            slug
+                            excerpt
+                            featuredImage {
+                                node {
+                                    mediaItemUrl
+                                    altText
+                                }
+                            }
+                            booksFields {
+                                completionDate
+                                coverImage {
+                                    mediaItemUrl
+                                    altText
+                                }
+                                progress {
+                                    totalPages
+                                    completePages
+                                }
+                            }
+                        }
+                    }
+                    displayAsFutureReleases
+                }
+                ... on Page_Pagesections_PageSections_TextWithImage {
+                    content
+                    addSocialLinks
+                    image {
+                        altText
+                        mediaItemUrl
+                    }
+                    title
+                    preTitle
+                }
+            }
+        }
+    }
+`;

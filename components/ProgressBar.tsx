@@ -2,30 +2,44 @@ import styled from 'styled-components';
 import { useSpring, animated, config } from '@react-spring/web';
 import { useInView } from 'react-intersection-observer';
 
+const ProgressWrap = styled.div`
+    width: 50%;
+`;
 const StyledProgress = styled.div`
-    border-radius: 2rem;
-    width: 200px;
-    background: #f2f2f2;
+    width: 100%;
+    background: var(--color-secondary);
     position: relative;
     height: 2rem;
     margin: 1rem 0 0.5rem;
     box-shadow: var(--shadow-elevation-low);
+    border: 1px solid var(--white);
 `;
 const StyledSpan = styled.div`
-    border-radius: 2rem;
-    background: var(--color-secondary-100);
+    background: var(--white);
     box-shadow: var(--shadow-elevation-low);
-    height: 2rem;
+    height: calc(2rem - 2px);
+    top: 0;
     position: absolute;
 `;
 
 const AnimatedSpan = animated(StyledSpan);
+const TitleWrap = styled.div`
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
 interface Props {
     totalPages: number;
     completePages: number;
+    title?: string;
 }
 
-export default function ProgressBar({ totalPages, completePages }: Props) {
+export default function ProgressBar({
+    totalPages,
+    completePages,
+    title,
+}: Props) {
     const { ref, inView } = useInView({
         /* Optional options */
         threshold: 0,
@@ -36,17 +50,24 @@ export default function ProgressBar({ totalPages, completePages }: Props) {
             width: 0,
         },
         to: {
-            width: inView ? Math.floor((completePages / totalPages) * 200) : 0,
+            width: inView ? Math.floor((completePages / totalPages) * 500) : 0,
         },
         config: config.stiff,
     });
 
     return (
-        <>
+        <ProgressWrap>
+            <TitleWrap>
+                {title && <h3>{title}</h3>}
+                <div>
+                    <span className={'bold'}>{completePages}</span>
+                    {`/${totalPages} words`}
+                </div>
+            </TitleWrap>
+
             <StyledProgress ref={ref}>
                 <AnimatedSpan style={styles} inView={inView} />
             </StyledProgress>
-            <div>{`${completePages} out of ${totalPages} pages`}</div>
-        </>
+        </ProgressWrap>
     );
 }
