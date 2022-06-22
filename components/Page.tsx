@@ -46,7 +46,6 @@ export default function Page({
         initialData: themeSettings,
         notifyOnChangeProps: 'tracked',
     });
-    console.log(isFrontPage);
     return (
         <>
             {seo && <YoastSeo seo={seo} />}
