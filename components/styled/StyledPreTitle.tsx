@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledPreTitle = styled.h3`
     font-family: var(--font-cursive), cursive;
-    font-size: clamp(5rem, 4vw, 10rem);
+    font-size: clamp(5rem, 8vw, 10rem);
     text-align: center;
     opacity: 0.25;
     color: var(--color-primary);

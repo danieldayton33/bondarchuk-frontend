@@ -12,6 +12,10 @@ const StyledContent = styled(GridItem)<{ dark: boolean }>`
     color: ${(props) => (props.dark ? 'var(--white)' : 'var(--theme-primary)')};
 `;
 
+const StyledImageItem = styled(GridItem)`
+    min-height: 40rem;
+`;
+
 const Cta: FunctionComponent<Page_Pagesections_PageSections_Cta> = function ({
     content,
     columnImage,
@@ -22,14 +26,14 @@ const Cta: FunctionComponent<Page_Pagesections_PageSections_Cta> = function ({
         <Container maxWidth={'xxl'}>
             <Grid>
                 {columnImage?.mediaItemUrl && (
-                    <GridItem>
+                    <StyledImageItem>
                         <Image
                             layout={'fill'}
                             src={columnImage?.mediaItemUrl}
                             alt={columnImage?.altText || ''}
                             objectFit={'cover'}
                         />
-                    </GridItem>
+                    </StyledImageItem>
                 )}
                 {content && (
                     <StyledContent dark={!!backgroundImage} padding={10}>
