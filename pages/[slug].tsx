@@ -14,6 +14,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { useQuery } from 'react-query';
 import GridItem from '../components/GridItem';
 import Page from '../components/Page';
+import PageSectionLoader from '../components/PageSectionLoader';
 
 export default function DefaultPage({
     pageData,
@@ -34,13 +35,16 @@ export default function DefaultPage({
             notifyOnChangeProps: 'tracked',
         },
     );
-    const { content } = data || {};
+    const { content, PageSections } = data || {};
     return (
         <Page themeSettings={themeSettings} menuItems={menuItems} {...data}>
             {content && (
                 <GridItem>
                     <div dangerouslySetInnerHTML={{ __html: content }} />
                 </GridItem>
+            )}
+            {PageSections?.pageSections.length > 0 && (
+                <PageSectionLoader pageSections={PageSections.pageSections} />
             )}
         </Page>
     );

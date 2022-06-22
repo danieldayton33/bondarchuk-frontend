@@ -1,6 +1,11 @@
 import { gql, request } from 'graphql-request';
 import { getQueryUri } from './utils';
-import { BOOKS_FIELDS, MENU_QUERY, THEME_SETTINGS } from './fragments';
+import {
+    BOOKS_FIELDS,
+    MENU_QUERY,
+    PageSectionFragment,
+    THEME_SETTINGS,
+} from './fragments';
 
 export async function getPage({ uri = '' }) {
     const data = await request(
@@ -14,6 +19,7 @@ export async function getPage({ uri = '' }) {
                         name
                     }
                     ... on Page {
+                        isFrontPage
                         id
                         title
                         content
@@ -31,8 +37,10 @@ export async function getPage({ uri = '' }) {
                             fullHead
                         }
                     }
+                    ...PageSectionFragment
                 }
             }
+            ${PageSectionFragment}
         `,
         { uri: uri },
     );

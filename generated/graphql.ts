@@ -37,11 +37,14 @@ export type Art = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & N
    * @deprecated Deprecated in favor of the databaseId field
    */
   artId: Scalars['Int'];
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
   /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -211,11 +214,14 @@ export type Book = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   bookId: Scalars['Int'];
   /** Added to the GraphQL Schema because the ACF Field Group &quot;Books Fields&quot; was set to Show in GraphQL. */
   booksFields?: Maybe<Book_Booksfields>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
   /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -370,6 +376,7 @@ export type Category = DatabaseIdentifier & HierarchicalTermNode & MenuItemLinka
   categoryId?: Maybe<Scalars['Int']>;
   /** Connection between the category type and the category type */
   children?: Maybe<CategoryToCategoryConnection>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the category type and the ContentNode type */
   contentNodes?: Maybe<CategoryToContentNodeConnection>;
@@ -870,6 +877,8 @@ export type CommentRepliesArgs = {
 /** A Comment Author object */
 export type CommentAuthor = Commenter & Node & {
   __typename?: 'CommentAuthor';
+  /** Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument. */
+  avatar?: Maybe<Avatar>;
   /** Identifies the primary key from the database. */
   databaseId: Scalars['Int'];
   /** The email for the comment author */
@@ -882,6 +891,14 @@ export type CommentAuthor = Commenter & Node & {
   name?: Maybe<Scalars['String']>;
   /** The url the comment author. */
   url?: Maybe<Scalars['String']>;
+};
+
+
+/** A Comment Author object */
+export type CommentAuthorAvatarArgs = {
+  forceDefault?: InputMaybe<Scalars['Boolean']>;
+  rating?: InputMaybe<AvatarRatingEnum>;
+  size?: InputMaybe<Scalars['Int']>;
 };
 
 /** Connection between the Comment type and the Comment type */
@@ -1051,6 +1068,8 @@ export type CommentToParentCommentConnectionWhereArgs = {
 
 /** The author of a comment */
 export type Commenter = {
+  /** Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument. */
+  avatar?: Maybe<Avatar>;
   /** Identifies the primary key from the database. */
   databaseId: Scalars['Int'];
   /** The email address of the author of a comment. */
@@ -1104,57 +1123,126 @@ export enum CommentsConnectionOrderbyEnum {
 /** GraphQL representation of WordPress Conditional Tags. */
 export type ConditionalTags = {
   __typename?: 'ConditionalTags';
-  /** Determines whether the query is for an existing archive page. */
+  /**
+   * Determines whether the query is for an existing archive page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isArchive?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing attachment page. */
+  /**
+   * Determines whether the query is for an existing attachment page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isAttachment?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing author archive page. */
+  /**
+   * Determines whether the query is for an existing author archive page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isAuthor?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing category archive page. */
+  /**
+   * Determines whether the query is for an existing category archive page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isCategory?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing date archive. */
+  /**
+   * Determines whether the query is for an existing date archive.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isDate?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing day archive. */
+  /**
+   * Determines whether the query is for an existing day archive.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isDay?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for the front page of the site. */
+  /**
+   * Determines whether the query is for the front page of the site.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isFrontPage?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for the blog homepage. */
+  /**
+   * Determines whether the query is for the blog homepage.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isHome?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing month archive. */
+  /**
+   * Determines whether the query is for an existing month archive.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isMonth?: Maybe<Scalars['Boolean']>;
-  /** Determines whether this site has more than one author. */
+  /**
+   * Determines whether this site has more than one author.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isMultiAuthor?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing single page. */
+  /**
+   * Determines whether the query is for an existing single page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isPage?: Maybe<Scalars['Boolean']>;
-  /** Determines whether currently in a page template. */
+  /**
+   * Determines whether currently in a page template.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isPageTemplate?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing post type archive page. */
+  /**
+   * Determines whether the query is for an existing post type archive page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isPostTypeArchive?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for a post or page preview. */
+  /**
+   * Determines whether the query is for a post or page preview.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isPreview?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for the Privacy Policy page. */
+  /**
+   * Determines whether the query is for the Privacy Policy page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isPrivacyPolicy?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for a search. */
+  /**
+   * Determines whether the query is for a search.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isSearch?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing single post. */
+  /**
+   * Determines whether the query is for an existing single post.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isSingle?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing single post of any post type (post, attachment, page, custom post types). */
+  /**
+   * Determines whether the query is for an existing single post of any post type (post, attachment, page, custom post types).
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isSingular?: Maybe<Scalars['Boolean']>;
-  /** Determines whether a post is sticky. */
+  /**
+   * Determines whether a post is sticky.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isSticky?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing tag archive page. */
+  /**
+   * Determines whether the query is for an existing tag archive page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isTag?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing custom taxonomy archive page. */
+  /**
+   * Determines whether the query is for an existing custom taxonomy archive page.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isTax?: Maybe<Scalars['Boolean']>;
-  /** Determines whether the query is for an existing year archive. */
+  /**
+   * Determines whether the query is for an existing year archive.
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
   isYear?: Maybe<Scalars['Boolean']>;
 };
 
 /** Nodes used to manage content */
 export type ContentNode = {
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
   /** The ID of the node in the database. */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -1311,6 +1399,7 @@ export type ContentType = Node & UniformResourceIdentifiable & {
   __typename?: 'ContentType';
   /** Whether this content type should can be exported. */
   canExport?: Maybe<Scalars['Boolean']>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentType type and the Taxonomy type */
   connectedTaxonomies?: Maybe<ContentTypeToTaxonomyConnection>;
@@ -1648,13 +1737,13 @@ export type CreateCommentInput = {
   authorUrl?: InputMaybe<Scalars['String']>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']>;
-  /** The ID of the post object the comment belongs to. */
+  /** The database ID of the post object the comment belongs to. */
   commentOn?: InputMaybe<Scalars['Int']>;
   /** Content of the comment. */
   content?: InputMaybe<Scalars['String']>;
   /** The date of the object. Preferable to enter as year/month/day ( e.g. 01/31/2017 ) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
   date?: InputMaybe<Scalars['String']>;
-  /** Parent comment of current comment. */
+  /** Parent comment ID of current comment. */
   parent?: InputMaybe<Scalars['ID']>;
   /** Type of comment. */
   type?: InputMaybe<Scalars['String']>;
@@ -1693,7 +1782,7 @@ export type CreateMediaItemInput = {
   filePath?: InputMaybe<Scalars['String']>;
   /** The file type of the mediaItem */
   fileType?: InputMaybe<MimeTypeEnum>;
-  /** The WordPress post ID or the graphQL postId of the parent object */
+  /** The ID of the parent object */
   parentId?: InputMaybe<Scalars['ID']>;
   /** The ping status for the mediaItem */
   pingStatus?: InputMaybe<Scalars['String']>;
@@ -2532,9 +2621,12 @@ export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNo
   commentStatus?: Maybe<Scalars['String']>;
   /** Connection between the mediaItem type and the Comment type */
   comments?: Maybe<MediaItemToCommentConnection>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
   /** The unique identifier stored in the database */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -2964,6 +3056,8 @@ export type MenuItem = DatabaseIdentifier & Node & {
   target?: Maybe<Scalars['String']>;
   /** Title attribute for the menu item link */
   title?: Maybe<Scalars['String']>;
+  /** The uri of the resource the menu item links to */
+  uri?: Maybe<Scalars['String']>;
   /** URL or destination of the menu item. */
   url?: Maybe<Scalars['String']>;
 };
@@ -3336,9 +3430,12 @@ export type NodeWithExcerptExcerptArgs = {
 
 /** A node that can have a featured image set */
 export type NodeWithFeaturedImage = {
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
   /** The unique identifier stored in the database */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -3481,6 +3578,8 @@ export enum OrderEnum {
 /** The page type */
 export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithFeaturedImage & NodeWithPageAttributes & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
   __typename?: 'Page';
+  /** Added to the GraphQL Schema because the ACF Field Group &quot;Page Sections&quot; was set to Show in GraphQL. */
+  PageSections?: Maybe<Page_Pagesections>;
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<HierarchicalContentNodeToContentNodeAncestorsConnection>;
   /** Connection between the NodeWithAuthor type and the User type */
@@ -3497,11 +3596,14 @@ export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & 
   commentStatus?: Maybe<Scalars['String']>;
   /** Connection between the page type and the Comment type */
   comments?: Maybe<PageToCommentConnection>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
   /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -3858,6 +3960,72 @@ export enum PageToRevisionConnectionWhereArgsTaxQueryOperator {
   NotIn = 'NOT_IN'
 }
 
+/** Field Group */
+export type Page_Pagesections = AcfFieldGroup & {
+  __typename?: 'Page_Pagesections';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  pageSections?: Maybe<Array<Maybe<Page_Pagesections_PageSections>>>;
+};
+
+export type Page_Pagesections_PageSections = Page_Pagesections_PageSections_Books | Page_Pagesections_PageSections_Cta | Page_Pagesections_PageSections_TextColumns | Page_Pagesections_PageSections_TextWithImage;
+
+/** Group within the flex field */
+export type Page_Pagesections_PageSections_Books = AcfFieldGroup & {
+  __typename?: 'Page_Pagesections_PageSections_Books';
+  books?: Maybe<Array<Maybe<Page_Pagesections_PageSections_Books_Books>>>;
+  displayAsFutureReleases?: Maybe<Scalars['Boolean']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+};
+
+export type Page_Pagesections_PageSections_Books_Books = Book;
+
+/** Group within the flex field */
+export type Page_Pagesections_PageSections_Cta = AcfFieldGroup & {
+  __typename?: 'Page_Pagesections_PageSections_Cta';
+  backgroundImage?: Maybe<MediaItem>;
+  columnImage?: Maybe<MediaItem>;
+  content?: Maybe<Scalars['String']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  link?: Maybe<AcfLink>;
+};
+
+/** Group within the flex field */
+export type Page_Pagesections_PageSections_TextColumns = AcfFieldGroup & {
+  __typename?: 'Page_Pagesections_PageSections_TextColumns';
+  columns?: Maybe<Array<Maybe<Page_Pagesections_PageSections_TextColumns_Columns>>>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  preTitle?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+/** Field Group */
+export type Page_Pagesections_PageSections_TextColumns_Columns = AcfFieldGroup & {
+  __typename?: 'Page_Pagesections_PageSections_TextColumns_columns';
+  columnLink?: Maybe<AcfLink>;
+  content?: Maybe<Scalars['String']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+};
+
+/** Group within the flex field */
+export type Page_Pagesections_PageSections_TextWithImage = AcfFieldGroup & {
+  __typename?: 'Page_Pagesections_PageSections_TextWithImage';
+  /** Toggle to add social links to the content section */
+  addSocialLinks?: Maybe<Scalars['Boolean']>;
+  content?: Maybe<Scalars['String']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  image?: Maybe<MediaItem>;
+  /** Toggle to move the image to the left */
+  imageOnLeft?: Maybe<Scalars['Boolean']>;
+  preTitle?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
 /** An plugin object */
 export type Plugin = Node & {
   __typename?: 'Plugin';
@@ -3881,6 +4049,24 @@ export type Plugin = Node & {
   version?: Maybe<Scalars['String']>;
 };
 
+/** The status of the WordPress plugin. */
+export enum PluginStatusEnum {
+  /** The plugin is currently active. */
+  Active = 'ACTIVE',
+  /** The plugin is a drop-in plugin. */
+  DropIn = 'DROP_IN',
+  /** The plugin is currently inactive. */
+  Inactive = 'INACTIVE',
+  /** The plugin is a must-use plugin. */
+  MustUse = 'MUST_USE',
+  /** The plugin is technically active but was paused while loading. */
+  Paused = 'PAUSED',
+  /** The plugin was active recently. */
+  RecentlyActive = 'RECENTLY_ACTIVE',
+  /** The plugin has an upgrade available. */
+  Upgrade = 'UPGRADE'
+}
+
 /** The post type */
 export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & UniformResourceIdentifiable & {
   __typename?: 'Post';
@@ -3898,11 +4084,14 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   commentStatus?: Maybe<Scalars['String']>;
   /** Connection between the post type and the Comment type */
   comments?: Maybe<PostToCommentConnection>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** The content of the post. */
   content?: Maybe<Scalars['String']>;
   /** Connection between the ContentNode type and the ContentType type */
   contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
   /** The unique resource identifier path */
   databaseId: Scalars['Int'];
   /** Post publishing date. */
@@ -4112,6 +4301,7 @@ export type PostCategoriesNodeInput = {
 /** The postFormat type */
 export type PostFormat = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'PostFormat';
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the postFormat type and the ContentNode type */
   contentNodes?: Maybe<PostFormatToContentNodeConnection>;
@@ -4446,9 +4636,9 @@ export enum PostIdType {
 
 /** The format of post field data. */
 export enum PostObjectFieldFormatEnum {
-  /** Provide the field value directly from database */
+  /** Provide the field value directly from database. Null on unauthenticated requests. */
   Raw = 'RAW',
-  /** Apply the default WordPress rendering */
+  /** Provide the field value as rendered by WordPress. Default. */
   Rendered = 'RENDERED'
 }
 
@@ -5887,6 +6077,7 @@ export type RootQueryPluginsArgs = {
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<RootQueryToPluginConnectionWhereArgs>;
 };
 
 
@@ -6913,6 +7104,16 @@ export type RootQueryToPluginConnectionEdge = {
   node?: Maybe<Plugin>;
 };
 
+/** Arguments for filtering the RootQueryToPluginConnection connection */
+export type RootQueryToPluginConnectionWhereArgs = {
+  /** Show plugin based on a keyword search. */
+  search?: InputMaybe<Scalars['String']>;
+  /** Retrieve plugins where plugin status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PluginStatusEnum>>>;
+  /** Show plugins with a specific status. */
+  status?: InputMaybe<PluginStatusEnum>;
+};
+
 /** Connection between the RootQuery type and the post type */
 export type RootQueryToPostConnection = {
   __typename?: 'RootQueryToPostConnection';
@@ -7461,6 +7662,7 @@ export type SeoSchema = {
   companyLogo?: Maybe<MediaItem>;
   companyName?: Maybe<Scalars['String']>;
   companyOrPerson?: Maybe<Scalars['String']>;
+  homeUrl?: Maybe<Scalars['String']>;
   inLanguage?: Maybe<Scalars['String']>;
   logo?: Maybe<MediaItem>;
   personLogo?: Maybe<MediaItem>;
@@ -7638,6 +7840,7 @@ export type Settings = {
 /** The tag type */
 export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'Tag';
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Connection between the tag type and the ContentNode type */
   contentNodes?: Maybe<TagToContentNodeConnection>;
@@ -8080,6 +8283,7 @@ export type TaxonomyToContentTypeConnectionEdge = {
 
 /** Terms are nodes within a Taxonomy, used to group and relate other nodes. */
 export type TermNode = {
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** The number of objects connected to the object */
   count?: Maybe<Scalars['Int']>;
@@ -8262,6 +8466,7 @@ export type ThemeSettings_Themesettings_SocialLinks = AcfFieldGroup & {
 
 /** Any node that has a URI */
 export type UniformResourceIdentifiable = {
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** The unique resource identifier path */
   id: Scalars['ID'];
@@ -8379,7 +8584,7 @@ export type UpdateCommentInput = {
   authorUrl?: InputMaybe<Scalars['String']>;
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']>;
-  /** The ID of the post object the comment belongs to. */
+  /** The database ID of the post object the comment belongs to. */
   commentOn?: InputMaybe<Scalars['Int']>;
   /** Content of the comment. */
   content?: InputMaybe<Scalars['String']>;
@@ -8387,7 +8592,7 @@ export type UpdateCommentInput = {
   date?: InputMaybe<Scalars['String']>;
   /** The ID of the comment being updated. */
   id: Scalars['ID'];
-  /** Parent comment of current comment. */
+  /** Parent comment ID of current comment. */
   parent?: InputMaybe<Scalars['ID']>;
   /** Type of comment. */
   type?: InputMaybe<Scalars['String']>;
@@ -8428,7 +8633,7 @@ export type UpdateMediaItemInput = {
   fileType?: InputMaybe<MimeTypeEnum>;
   /** The ID of the mediaItem object */
   id: Scalars['ID'];
-  /** The WordPress post ID or the graphQL postId of the parent object */
+  /** The ID of the parent object */
   parentId?: InputMaybe<Scalars['ID']>;
   /** The ping status for the mediaItem */
   pingStatus?: InputMaybe<Scalars['String']>;
@@ -8603,13 +8808,13 @@ export type UpdateSettingsPayload = {
   allSettings?: Maybe<Settings>;
   /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: Maybe<Scalars['String']>;
-  /** Update the discussion setting. */
+  /** Update the DiscussionSettings setting. */
   discussionSettings?: Maybe<DiscussionSettings>;
-  /** Update the general setting. */
+  /** Update the GeneralSettings setting. */
   generalSettings?: Maybe<GeneralSettings>;
-  /** Update the reading setting. */
+  /** Update the ReadingSettings setting. */
   readingSettings?: Maybe<ReadingSettings>;
-  /** Update the writing setting. */
+  /** Update the WritingSettings setting. */
   writingSettings?: Maybe<WritingSettings>;
 };
 
@@ -8698,6 +8903,7 @@ export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdenti
   capabilities?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Connection between the User type and the Comment type */
   comments?: Maybe<UserToCommentConnection>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
   /** Identifies the primary key from the database. */
   databaseId: Scalars['Int'];

@@ -17,10 +17,20 @@ interface Props {
     columns?: number;
     children?: ReactNode;
     background?: string;
+    className?: string;
 }
-export default function Grid({ columns = 2, children, background }: Props) {
+export default function Grid({
+    columns = 2,
+    children,
+    background,
+    className = '',
+}: Props) {
     return (
-        <StyledGrid columns={columns} background={background || 'transparent'}>
+        <StyledGrid
+            columns={columns}
+            background={background || 'transparent'}
+            className={className}
+        >
             {children}
         </StyledGrid>
     );

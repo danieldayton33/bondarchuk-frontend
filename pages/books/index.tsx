@@ -43,14 +43,6 @@ export default function Books({ books, menuItems, themeSettings }: Props) {
                         <BookCard key={`book-${i}`} {...book} />
                     ))}
             </BookWrap>
-            <Grid columns={2}>
-                {data &&
-                    data.map((book: Book, i: number) => (
-                        <GridItem key={`book-${i}`}>
-                            <BookFlipCard {...book} />
-                        </GridItem>
-                    ))}
-            </Grid>
         </Page>
     );
 }

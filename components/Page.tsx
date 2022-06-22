@@ -15,7 +15,6 @@ import Nav from './Nav';
 import Footer from './Footer';
 
 const Wrapper = styled.div`
-    max-width: 80rem;
     margin: 5rem auto;
     padding: 2rem;
 `;
@@ -27,12 +26,14 @@ interface Props {
     seo?: Maybe<PostTypeSeo>;
     menuItems?: Array<MenuItem>;
     themeSettings?: ThemeSettings_Themesettings;
+    isFrontPage?: boolean;
 }
 
 export default function Page({
     featuredImage,
     title,
     seo,
+    isFrontPage,
     children,
     menuItems,
     themeSettings,
@@ -49,8 +50,17 @@ export default function Page({
         <>
             {seo && <YoastSeo seo={seo} />}
             <main>
-                <Nav themeSettings={theme} menuItems={menu} />
-                <Header featuredImage={featuredImage} title={title} />
+                <Nav
+                    themeSettings={theme}
+                    menuItems={menu}
+                    isFrontPage={isFrontPage}
+                />
+                <Header
+                    featuredImage={featuredImage}
+                    title={title}
+                    isFrontPage={isFrontPage}
+                    themeSettings={theme}
+                />
                 <Wrapper>{children}</Wrapper>
                 <Footer themeSettings={themeSettings} menuItems={menu} />
             </main>
