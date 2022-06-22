@@ -41,7 +41,7 @@ const PageSectionLoader: FunctionComponent<Props> = function ({
                     if (!elementName) return;
                     const PSComponent = dynamic(
                         () =>
-                            import(`../components/pageSections/${elementName}`),
+                            import(`../components/PageSections/${elementName}`),
                     );
                     return (
                         <PSComponent
