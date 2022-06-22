@@ -27,7 +27,7 @@ export default function Home({ pageData, menuItems, themeSettings }: Props) {
                     <div dangerouslySetInnerHTML={{ __html: content }} />
                 </GridItem>
             )}
-            {PageSections?.pageSections && (
+            {PageSections?.pageSections.length > 0 && (
                 <PageSectionLoader pageSections={PageSections.pageSections} />
             )}
         </Page>

@@ -43,7 +43,7 @@ export default function DefaultPage({
                     <div dangerouslySetInnerHTML={{ __html: content }} />
                 </GridItem>
             )}
-            {PageSections && (
+            {PageSections?.pageSections.length > 0 && (
                 <PageSectionLoader pageSections={PageSections.pageSections} />
             )}
         </Page>

@@ -38,7 +38,6 @@ const PageSectionLoader: FunctionComponent<Props> = function ({
             {pageSections &&
                 pageSections.map((pageSection, i) => {
                     const elementName = returnSectionType(pageSection);
-
                     if (!elementName) return;
                     const PSComponent = dynamic(
                         () =>
