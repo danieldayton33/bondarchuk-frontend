@@ -8,9 +8,6 @@ import {
 import BookCard from '../../components/BookCard';
 import styled from 'styled-components';
 import Page from '../../components/Page';
-import BookFlipCard from '../../components/BookFlipCard';
-import Grid from '../../components/Grid';
-import GridItem from '../../components/GridItem';
 
 const BookWrap = styled.div`
     display: grid;

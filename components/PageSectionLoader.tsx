@@ -9,6 +9,7 @@ const pageSectionComponents: PageSectionObject = {
     TextColumns: 'TextColumns',
     Cta: 'Cta',
     Books: 'Books',
+    TextWithImage: 'TextWithImage',
 };
 
 const returnSectionType = (section: Page_Pagesections_PageSections) => {

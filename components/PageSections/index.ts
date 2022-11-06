@@ -1,9 +1,6 @@
-import TextColumns from "./TextColumns";
-import Cta from "./Cta";
-import Books from './Books'
+import TextColumns from './TextColumns';
+import Cta from './Cta';
+import Books from './Books';
+import TextWithImage from './TextWithImage';
 
-export {
-    TextColumns,
-    Cta,
-    Books
-}
+export { Books, Cta, TextColumns, TextWithImage };

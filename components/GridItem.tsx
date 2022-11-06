@@ -5,6 +5,9 @@ const StyledGridItem = styled.div<{ padding: number; span: number }>`
     padding: ${(props) => props.padding}rem;
     grid-column: span ${(props) => props.span};
     position: relative;
+    @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+        padding: ${(props) => props.padding / 2}rem;
+    }
 `;
 export default function GridItem({
     padding = 2,

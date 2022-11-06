@@ -101,19 +101,18 @@ const Books: FunctionComponent<Page_Pagesections_PageSections_Books> =
                                     if (!book) return <></>;
                                     const { title, booksFields } = book;
                                     return (
-                                        <>
-                                            <ProgressBar
-                                                totalPages={
-                                                    booksFields?.progress
-                                                        ?.totalPages || 0
-                                                }
-                                                completePages={
-                                                    booksFields?.progress
-                                                        ?.completePages || 0
-                                                }
-                                                title={title || ''}
-                                            />
-                                        </>
+                                        <ProgressBar
+                                            key={`progress-bar-${i}`}
+                                            totalPages={
+                                                booksFields?.progress
+                                                    ?.totalPages || 0
+                                            }
+                                            completePages={
+                                                booksFields?.progress
+                                                    ?.completePages || 0
+                                            }
+                                            title={title || ''}
+                                        />
                                     );
                                 })}
                             </FutureReleaseWrap>

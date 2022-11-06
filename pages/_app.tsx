@@ -10,18 +10,22 @@ import Theme from '../components/Theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { ThemeSettingsProvider } from '../lib/contexts/ThemeSettingsProvider';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
+    const { themeSettings } = pageProps;
     return (
         <Theme>
-            <QueryClientProvider client={queryClient}>
-                <Component {...pageProps} />
-                <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
+            <ThemeSettingsProvider themeSettings={themeSettings}>
+                <QueryClientProvider client={queryClient}>
+                    <Component {...pageProps} />
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </QueryClientProvider>
+            </ThemeSettingsProvider>
         </Theme>
     );
 }

@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import { useSpring, animated, config } from '@react-spring/web';
 import { useInView } from 'react-intersection-observer';
+import { useEffect, useRef, useState } from 'react';
 
 const ProgressWrap = styled.div`
     width: 50%;
+    @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+        width: 80%;
+    }
 `;
 const StyledProgress = styled.div`
     width: 100%;
@@ -45,18 +49,41 @@ export default function ProgressBar({
         threshold: 0,
         triggerOnce: true,
     });
+    const wrapRef = useRef<HTMLDivElement>(null);
+    const [maxWidth, setMaxWidth] = useState(0);
     const styles = useSpring({
         from: {
             width: 0,
         },
         to: {
-            width: inView ? Math.floor((completePages / totalPages) * 500) : 0,
+            width: inView
+                ? Math.floor((completePages / totalPages) * maxWidth)
+                : 0,
         },
         config: config.stiff,
     });
-
+    function handleMaxWidth() {
+        if (wrapRef.current) {
+            setMaxWidth(wrapRef.current.clientWidth);
+        }
+    }
+    useEffect(() => {
+        handleMaxWidth();
+    }, [maxWidth]);
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            if (wrapRef.current) {
+                handleMaxWidth();
+            }
+        });
+        return () => {
+            window.removeEventListener('resize', () => {
+                handleMaxWidth();
+            });
+        };
+    }, [maxWidth]);
     return (
-        <ProgressWrap>
+        <ProgressWrap ref={wrapRef}>
             <TitleWrap>
                 {title && <h3>{title}</h3>}
                 <div>

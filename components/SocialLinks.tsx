@@ -1,28 +1,42 @@
 import Link from 'next/link';
-import { faGoodreads, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import {
+    faGoodreads,
+    faGoodreadsG,
+    faInstagram,
+} from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Maybe,
-    ThemeSettings_Themesettings_SocialLinks,
-} from '../generated/graphql';
+import { useThemeSettings } from '../lib/utils';
 
-const StyledFontAwesome = styled(FontAwesomeIcon)`
-    color: var(--white);
+const StyledFontAwesome = styled(FontAwesomeIcon)<{ isDark: boolean }>`
+    color: var(${(props) => (props.isDark ? `--color-primary` : `--white`)});
     margin-right: 1rem;
+
+    background-color: transparent;
+    padding: 1rem;
+    aspect-ratio: 1/1;
+    border: ${(props) =>
+        props.isDark
+            ? `1px solid var(--color-primary)`
+            : `1px solid var(--white)`};
+    border-radius: 100%;
+    transition: all 0.3s ease-in-out;
     &:hover {
-        color: var(--color-ternary-100);
+        background-color: ${(props) =>
+            props.isDark ? `var(--color-primary)` : `var(--white)`};
+        color: ${(props) =>
+            props.isDark ? `var(--white)` : `var(--color-primary)`};
+        transition: all 0.3s ease-in-out;
     }
 `;
 const SocialWrap = styled.div`
     display: flex;
     justify-content: flex-end;
 `;
-export default function SocialLinks({
-    socialLinks,
-}: {
-    socialLinks?: Maybe<ThemeSettings_Themesettings_SocialLinks>;
-}) {
+export default function SocialLinks({ isDark = false }) {
+    const { themeSettings } = useThemeSettings();
+    const socialLinks = themeSettings?.socialLinks || {};
+    if (!socialLinks) return <></>;
     const { instgram, goodReads } = socialLinks || {};
     return (
         <SocialWrap>
@@ -32,7 +46,11 @@ export default function SocialLinks({
                         title={goodReads.title || 'Good Reads'}
                         target={goodReads.target || '_self'}
                     >
-                        <StyledFontAwesome size="2x" icon={faGoodreads} />
+                        <StyledFontAwesome
+                            isDark={isDark}
+                            size="1x"
+                            icon={faGoodreadsG}
+                        />
                     </a>
                 </Link>
             )}
@@ -42,7 +60,11 @@ export default function SocialLinks({
                         title={instgram.title || 'Instagram'}
                         target={instgram.target || '_self'}
                     >
-                        <StyledFontAwesome size="2x" icon={faInstagram} />
+                        <StyledFontAwesome
+                            isDark={isDark}
+                            size="1x"
+                            icon={faInstagram}
+                        />
                     </a>
                 </Link>
             )}

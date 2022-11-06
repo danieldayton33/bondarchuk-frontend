@@ -129,13 +129,9 @@ export default function SingleBook({
     );
 }
 
-interface IParams extends ParsedUrlQuery {
-    slug: string;
-}
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const slug = context?.params?.slug as unknown as IParams;
-    // @ts-ignore
-    const bookData = await getBookBySlug({ slug: slug });
+    const slug = context?.params?.slug || '';
+    const bookData = await getBookBySlug({ slug: slug.toString() });
     const menuItems = await getMenu();
     const themeSettings = await getThemeSettings();
     return {

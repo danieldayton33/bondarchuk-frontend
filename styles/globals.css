@@ -14,9 +14,15 @@
     url("/fonts/LucilleScript-Regular.woff")format('woff');
     font-weight: normal;
 }
+
+@font-face {
+    font-family: TT-Norms;
+    src: url("/fonts/TTNorms-Regular.otf")format('otf'),
+    url("/fonts/TTNorms-Regular.woff")format('woff');
+}
 :root{
   --font-highlight: Wallington-Pro;
-  --font-body: 'Zen Maru Gothic';
+  --font-body: TT-Norms;
   --font-cursive: LucilleScript;
   --color-primary: #3C3153;
   --color-primary--hex: 60, 49, 83;
@@ -55,6 +61,7 @@ body {
   margin: 0;
   font-family: var(--font-body), sans-serif;
   font-size: 1.6rem;
+    color: var(--color-primary);
   line-height: 1.5;
     background: url('/images/paper-texture-bg-image.png');
 }
@@ -79,4 +86,12 @@ a {
 .text-center {
     text-align: center;
     margin: 0 auto;
+}
+.section-content h2{
+        font-family: var(--font-highlight), sans-serif;
+        font-size: clamp(3.5rem, 6vw, 4.3rem);
+        line-height: 1.5;
+        font-weight: 400;
+        margin-bottom: 1rem;
+
 }

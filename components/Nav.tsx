@@ -87,7 +87,7 @@ export default function Nav({
                     )}
                 </a>
             </Link>
-            <SocialLinks socialLinks={socialLinks} />
+            <SocialLinks />
         </StyledNav>
     );
 }

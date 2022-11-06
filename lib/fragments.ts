@@ -162,6 +162,20 @@ export const PageSectionFragment = gql`
                     }
                     title
                     preTitle
+                    imageOnLeft
+                }
+                ... on Page_Pagesections_PageSections_CharacterArt {
+                    art {
+                        ... on Art {
+                            title
+                            featuredImage {
+                                node {
+                                    mediaItemUrl
+                                    altText
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
