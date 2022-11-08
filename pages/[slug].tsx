@@ -15,6 +15,8 @@ import { useQuery } from 'react-query';
 import GridItem from '../components/GridItem';
 import Page from '../components/Page';
 import PageSectionLoader from '../components/PageSectionLoader';
+import Container from '../components/Container';
+import Grid from '../components/Grid';
 
 export default function DefaultPage({
     pageData,
@@ -38,13 +40,19 @@ export default function DefaultPage({
     const { content, PageSections } = data || {};
     return (
         <Page themeSettings={themeSettings} menuItems={menuItems} {...data}>
-            {content && (
-                <GridItem>
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                </GridItem>
-            )}
             {PageSections?.pageSections.length > 0 && (
                 <PageSectionLoader pageSections={PageSections.pageSections} />
+            )}
+            {content && (
+                <Container maxWidth={'xxl'}>
+                    <Grid columns={1}>
+                        <GridItem>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: content }}
+                            />
+                        </GridItem>
+                    </Grid>
+                </Container>
             )}
         </Page>
     );

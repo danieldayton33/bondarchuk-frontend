@@ -10,6 +10,8 @@ const pageSectionComponents: PageSectionObject = {
     Cta: 'Cta',
     Books: 'Books',
     TextWithImage: 'TextWithImage',
+    InstagramImages: 'InstagramImages',
+    CharacterArt: 'CharacterArt',
 };
 
 const returnSectionType = (section: Page_Pagesections_PageSections) => {
@@ -44,6 +46,7 @@ const PageSectionLoader: FunctionComponent<Props> = function ({
                         () =>
                             import(`../components/PageSections/${elementName}`),
                     );
+                    // @ts-ignore
                     return (
                         <PSComponent
                             key={`page-section-${i}`}

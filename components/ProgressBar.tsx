@@ -46,7 +46,7 @@ export default function ProgressBar({
 }: Props) {
     const { ref, inView } = useInView({
         /* Optional options */
-        threshold: 0,
+        threshold: 0.2,
         triggerOnce: true,
     });
     const wrapRef = useRef<HTMLDivElement>(null);
@@ -60,7 +60,7 @@ export default function ProgressBar({
                 ? Math.floor((completePages / totalPages) * maxWidth)
                 : 0,
         },
-        config: config.stiff,
+        config: config.molasses,
     });
     function handleMaxWidth() {
         if (wrapRef.current) {

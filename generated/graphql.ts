@@ -32,6 +32,8 @@ export type AcfLink = {
 /** The art type */
 export type Art = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
   __typename?: 'Art';
+  /** Added to the GraphQL Schema because the ACF Field Group &quot;Art Fields&quot; was set to Show in GraphQL. */
+  artFields?: Maybe<Art_Artfields>;
   /**
    * The id field matches the WP_Post-&gt;ID field.
    * @deprecated Deprecated in favor of the databaseId field
@@ -163,6 +165,14 @@ export type ArtToPreviewConnectionEdge = {
   __typename?: 'ArtToPreviewConnectionEdge';
   /** The node of the connection, without the edges */
   node?: Maybe<Art>;
+};
+
+/** Field Group */
+export type Art_Artfields = AcfFieldGroup & {
+  __typename?: 'Art_Artfields';
+  artistName?: Maybe<Scalars['String']>;
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
 };
 
 /** Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from. */
@@ -353,6 +363,8 @@ export type Book_Booksfields = AcfFieldGroup & {
   goodReadsLink?: Maybe<AcfLink>;
   isComplete?: Maybe<Scalars['Boolean']>;
   progress?: Maybe<Book_Booksfields_Progress>;
+  relatedBooks?: Maybe<Array<Maybe<Book_Booksfields_RelatedBooks>>>;
+  seriesTitle?: Maybe<Scalars['String']>;
 };
 
 /** Field Group */
@@ -363,6 +375,8 @@ export type Book_Booksfields_Progress = AcfFieldGroup & {
   fieldGroupName?: Maybe<Scalars['String']>;
   totalPages?: Maybe<Scalars['Float']>;
 };
+
+export type Book_Booksfields_RelatedBooks = Book;
 
 /** The category type */
 export type Category = DatabaseIdentifier & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
@@ -3942,7 +3956,7 @@ export type Page_Pagesections = AcfFieldGroup & {
   pageSections?: Maybe<Array<Maybe<Page_Pagesections_PageSections>>>;
 };
 
-export type Page_Pagesections_PageSections = Page_Pagesections_PageSections_Books | Page_Pagesections_PageSections_CharacterArt | Page_Pagesections_PageSections_Cta | Page_Pagesections_PageSections_TextColumns | Page_Pagesections_PageSections_TextWithImage;
+export type Page_Pagesections_PageSections = Page_Pagesections_PageSections_Books | Page_Pagesections_PageSections_CharacterArt | Page_Pagesections_PageSections_Cta | Page_Pagesections_PageSections_InstagramImages | Page_Pagesections_PageSections_TextColumns | Page_Pagesections_PageSections_TextWithImage;
 
 /** Group within the flex field */
 export type Page_Pagesections_PageSections_Books = AcfFieldGroup & {
@@ -3975,6 +3989,15 @@ export type Page_Pagesections_PageSections_Cta = AcfFieldGroup & {
   /** The name of the ACF Field Group */
   fieldGroupName?: Maybe<Scalars['String']>;
   link?: Maybe<AcfLink>;
+};
+
+/** Group within the flex field */
+export type Page_Pagesections_PageSections_InstagramImages = AcfFieldGroup & {
+  __typename?: 'Page_Pagesections_PageSections_InstagramImages';
+  /** The name of the ACF Field Group */
+  fieldGroupName?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Maybe<MediaItem>>>;
+  instagramHandle?: Maybe<Scalars['String']>;
 };
 
 /** Group within the flex field */

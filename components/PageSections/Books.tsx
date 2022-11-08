@@ -8,7 +8,7 @@ import GridItem from '../GridItem';
 import styled from 'styled-components';
 import ProgressBar from '../ProgressBar';
 
-const FlexGridItem = styled(GridItem)`
+export const FlexGridItem = styled(GridItem)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,6 +45,9 @@ const StyledFutureReleases = styled.div`
             left: -5%;
             z-index: -1;
             border-radius: 100%;
+            @media (max-width: ${(props) => props.theme.breakpoints.lg}) {
+                border-radius: 0;
+            }
         }
     }
     &:before {
@@ -55,6 +58,12 @@ const StyledFutureReleases = styled.div`
         border: 1px solid var(--white);
         left: 3rem;
         top: 3rem;
+        @media (max-width: ${(props) => props.theme.breakpoints.lg}) {
+            height: calc(100% - 4rem);
+            width: calc(100% - 4rem);
+            left: 2rem;
+            top: 2rem;
+        }
     }
     &:after {
         content: '';
@@ -64,6 +73,12 @@ const StyledFutureReleases = styled.div`
         border: 1px solid var(--white);
         left: 5rem;
         top: 5rem;
+        @media (max-width: ${(props) => props.theme.breakpoints.lg}) {
+            height: calc(100% - 6rem);
+            width: calc(100% - 6rem);
+            left: 3rem;
+            top: 3rem;
+        }
     }
     .bg-image {
         z-index: 0;

@@ -1,14 +1,10 @@
 import Link from 'next/link';
-import {
-    faGoodreads,
-    faGoodreadsG,
-    faInstagram,
-} from '@fortawesome/free-brands-svg-icons';
+import { faGoodreadsG, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useThemeSettings } from '../lib/utils';
 
-const StyledFontAwesome = styled(FontAwesomeIcon)<{ isDark: boolean }>`
+export const StyledFontAwesome = styled(FontAwesomeIcon)<{ isDark: boolean }>`
     color: var(${(props) => (props.isDark ? `--color-primary` : `--white`)});
     margin-right: 1rem;
 

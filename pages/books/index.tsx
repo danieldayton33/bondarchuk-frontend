@@ -8,6 +8,9 @@ import {
 import BookCard from '../../components/BookCard';
 import styled from 'styled-components';
 import Page from '../../components/Page';
+import Grid from '../../components/Grid';
+import Container from '../../components/Container';
+import { FlexGridItem } from '../../components/PageSections/Books';
 
 const BookWrap = styled.div`
     display: grid;
@@ -34,12 +37,16 @@ export default function Books({ books, menuItems, themeSettings }: Props) {
             menuItems={menuItems}
             themeSettings={themeSettings}
         >
-            <BookWrap>
-                {data &&
-                    data.map((book: Book, i: number) => (
-                        <BookCard key={`book-${i}`} {...book} />
-                    ))}
-            </BookWrap>
+            <Container maxWidth={'xxl'}>
+                <Grid columns={2}>
+                    {data &&
+                        data.map((book: Book, i: number) => (
+                            <FlexGridItem key={`book-${i}`}>
+                                <BookCard {...book} />
+                            </FlexGridItem>
+                        ))}
+                </Grid>
+            </Container>
         </Page>
     );
 }

@@ -374,13 +374,15 @@ interface UniformResourceIdentifiable {
     uri: String
 }
 
+union Book_Booksfields_RelatedBooks = Book
+
 "A union of Content Node Types that support revisions"
 union ContentRevisionUnion = Page | Post
 
 "Deprecated in favor of MenuItemLinkeable Interface"
 union MenuItemObjectUnion = Art | Book | Category | Page | Post | Tag
 
-union Page_Pagesections_PageSections = Page_Pagesections_PageSections_Books | Page_Pagesections_PageSections_CharacterArt | Page_Pagesections_PageSections_Cta | Page_Pagesections_PageSections_TextColumns | Page_Pagesections_PageSections_TextWithImage
+union Page_Pagesections_PageSections = Page_Pagesections_PageSections_Books | Page_Pagesections_PageSections_CharacterArt | Page_Pagesections_PageSections_Cta | Page_Pagesections_PageSections_InstagramImages | Page_Pagesections_PageSections_TextColumns | Page_Pagesections_PageSections_TextWithImage
 
 union Page_Pagesections_PageSections_Books_Books = Book
 
@@ -398,6 +400,8 @@ type AcfLink {
 
 "The art type"
 type Art implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Art Fields&quot; was set to Show in GraphQL."
+    artFields: Art_Artfields
     "The id field matches the WP_Post-&gt;ID field."
     artId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
     conditionalTags: ConditionalTags @deprecated(reason: "Deprecated in favor of using Next.js pages")
@@ -503,6 +507,13 @@ type Art implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node &
 type ArtToPreviewConnectionEdge {
     "The node of the connection, without the edges"
     node: Art
+}
+
+"Field Group"
+type Art_Artfields implements AcfFieldGroup {
+    artistName: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
 }
 
 "Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from."
@@ -652,6 +663,8 @@ type Book_Booksfields implements AcfFieldGroup {
     goodReadsLink: AcfLink
     isComplete: Boolean
     progress: Book_Booksfields_Progress
+    relatedBooks: [Book_Booksfields_RelatedBooks]
+    seriesTitle: String
 }
 
 "Field Group"
@@ -2190,6 +2203,14 @@ type Page_Pagesections_PageSections_Cta implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     link: AcfLink
+}
+
+"Group within the flex field"
+type Page_Pagesections_PageSections_InstagramImages implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    images: [MediaItem]
+    instagramHandle: String
 }
 
 "Group within the flex field"

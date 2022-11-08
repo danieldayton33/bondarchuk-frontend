@@ -8,6 +8,8 @@ import { useQuery } from 'react-query';
 import Page from '../components/Page';
 import GridItem from '../components/GridItem';
 import PageSectionLoader from '../components/PageSectionLoader';
+import Grid from '../components/Grid';
+import Container from '../components/Container';
 
 interface Props {
     pageData: Array<PageType>;
@@ -22,13 +24,19 @@ export default function Home({ pageData, menuItems, themeSettings }: Props) {
     const { content, PageSections } = data || {};
     return (
         <Page themeSettings={themeSettings} menuItems={menuItems} {...data}>
-            {content && (
-                <GridItem>
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                </GridItem>
-            )}
             {PageSections?.pageSections.length > 0 && (
                 <PageSectionLoader pageSections={PageSections.pageSections} />
+            )}
+            {content && (
+                <Container maxWidth={'xxl'}>
+                    <Grid columns={1}>
+                        <GridItem>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: content }}
+                            />
+                        </GridItem>
+                    </Grid>
+                </Container>
             )}
         </Page>
     );

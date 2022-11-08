@@ -25,6 +25,25 @@ export const THEME_SETTINGS = gql`
     }
 `;
 
+export const ArtFragment = gql`
+    fragment ArtFragment on Art {
+        id
+        title
+        slug
+        featuredImage {
+            node {
+                altText
+                mediaItemUrl
+            }
+        }
+        content
+        excerpt
+        artFields {
+            artistName
+        }
+    }
+`;
+
 export const MENU_QUERY = gql`
     query MenuQuery {
         menu(id: "Primary", idType: NAME) {
@@ -52,7 +71,8 @@ export const MENU_QUERY = gql`
 `;
 export const HEADERFIELDS = gql``;
 
-export const BOOKS_FIELDS = `
+export const BOOK_FRAGMENT = gql`
+    fragment BookFragment on Book {
         booksFields {
             amazonLink {
                 target
@@ -74,6 +94,21 @@ export const BOOKS_FIELDS = `
                 mediaItemUrl
                 altText
             }
+            seriesTitle
+            relatedBooks {
+                ... on Book {
+                    id
+                    title
+                    uri
+                    slug
+                    booksFields {
+                        coverImage {
+                            mediaItemUrl
+                            altText
+                        }
+                    }
+                }
+            }
         }
         content
         excerpt
@@ -86,10 +121,11 @@ export const BOOKS_FIELDS = `
         slug
         title
         seo {
-                title
-                metaDesc
-                fullHead
-            }
+            title
+            metaDesc
+            fullHead
+        }
+    }
 `;
 
 export const PageSectionFragment = gql`
@@ -166,18 +202,19 @@ export const PageSectionFragment = gql`
                 }
                 ... on Page_Pagesections_PageSections_CharacterArt {
                     art {
-                        ... on Art {
-                            title
-                            featuredImage {
-                                node {
-                                    mediaItemUrl
-                                    altText
-                                }
-                            }
-                        }
+                        ...ArtFragment
                     }
+                    preTitle
+                }
+                ... on Page_Pagesections_PageSections_InstagramImages {
+                    images {
+                        mediaItemUrl
+                        altText
+                    }
+                    instagramHandle
                 }
             }
         }
     }
+    ${ArtFragment}
 `;
