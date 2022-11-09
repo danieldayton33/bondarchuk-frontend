@@ -62,7 +62,7 @@ body {
   font-family: var(--font-body), sans-serif;
   font-size: 1.6rem;
     color: var(--color-primary);
-  line-height: 1.5;
+    line-height: 1.5;
     background: url('/images/paper-texture-bg-image.png');
     overflow-x: hidden;
     max-width: 2100px;
