@@ -39,6 +39,9 @@ const StyledFlexGirdItem = styled(FlexGridItem)`
 
 const RelatedFlexGridItem = styled(FlexGridItem)`
     flex-direction: column;
+    .related-title {
+        font-family: var(--font-highlight), sans-serif;
+    }
 `;
 const StyledGridItem = styled(GridItem)`
     .book-title {
