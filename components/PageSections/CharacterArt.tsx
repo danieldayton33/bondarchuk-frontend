@@ -27,6 +27,9 @@ const StyledArtGrid = styled(Grid)`
             h2 {
                 letter-spacing: 0.42rem;
             }
+            .excerpt {
+                max-width: 80%;
+            }
         }
         @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
             &--image {
@@ -36,6 +39,9 @@ const StyledArtGrid = styled(Grid)`
             }
             &--content {
                 padding-top: 3rem;
+            }
+            .excerpt {
+                max-width: 100%;
             }
         }
     }
@@ -62,11 +68,18 @@ const returnSlides = (art: Maybe<Art>[] | null) => {
     if (!art) return null;
     // @ts-ignore
     return art?.map(({ featuredImage, excerpt, title, artFields }, i) => {
+        const { artistName } = artFields;
         return (
             <StyledArtGrid key={`art-slide-${i}`} columns={2}>
                 <GridItem className={'art--content'}>
                     {title && <h2>{title}</h2>}
-                    {excerpt && parseHtml(excerpt)}
+                    {artistName && (
+                        <p className={'uppercase-wide'}>{artistName}</p>
+                    )}
+
+                    {excerpt && (
+                        <div className={'excerpt'}>{parseHtml(excerpt)}</div>
+                    )}
                 </GridItem>
                 {featuredImage && featuredImage?.node?.mediaItemUrl && (
                     <GridItem className="art--image">
