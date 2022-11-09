@@ -54,10 +54,17 @@ export default function BookCard({
     featuredImage,
     excerpt,
     booksFields,
-}: Book) {
+    showExcerpt = true,
+    isRelated = false,
+}: Book & {
+    showExcerpt?: boolean;
+    isRelated?: boolean;
+}) {
     const router = useRouter();
     const ref = useRef(null);
     const isHovered = useHover(ref);
+    const height = isRelated ? 354 : 600;
+    const width = isRelated ? 253 : 400;
     const styles = useSpring({
         to: {
             opacity: isHovered ? 1 : 0,
@@ -81,24 +88,26 @@ export default function BookCard({
                 <Image
                     src={cardImage.mediaItemUrl}
                     alt={cardImage.altText || title || 'Book Image'}
-                    height={600}
-                    width={400}
-                    objectFit={'contain'}
+                    height={height}
+                    width={width}
+                    objectFit={'cover'}
                 />
             )}
-            <AnimatedCardBody style={styles}>
-                {title && <h2>{title}</h2>}
-                {excerpt && (
-                    <div dangerouslySetInnerHTML={{ __html: excerpt }} />
-                )}
-                {
-                    <Link href={`/books/${slug}`}>
-                        <a title={`Read More about ${title}`}>
-                            <Button theme={'light'}>Read More</Button>
-                        </a>
-                    </Link>
-                }
-            </AnimatedCardBody>
+            {showExcerpt && (
+                <AnimatedCardBody style={styles}>
+                    {title && <h2>{title}</h2>}
+                    {excerpt && (
+                        <div dangerouslySetInnerHTML={{ __html: excerpt }} />
+                    )}
+                    {
+                        <Link href={`/books/${slug}`}>
+                            <a title={`Read More about ${title}`}>
+                                <Button theme={'light'}>Read More</Button>
+                            </a>
+                        </Link>
+                    }
+                </AnimatedCardBody>
+            )}
         </StyledCard>
     );
 }

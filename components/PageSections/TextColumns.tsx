@@ -6,6 +6,15 @@ import { StyledPreTitle, StyledSectionTitle } from '../styled';
 import GridItem from '../GridItem';
 import Button from '../Button';
 import Container from '../Container';
+import styled from 'styled-components';
+import classNames from 'classnames';
+
+const StyledGridItem = styled(GridItem)`
+    &.is-single {
+        margin: 0 auto;
+        max-width: ${(props) => props.theme.breakpoints.sm};
+    }
+`;
 
 const TextColumns: FunctionComponent<Page_Pagesections_PageSections_TextColumns> =
     function ({ columns, title, preTitle }) {
@@ -20,7 +29,9 @@ const TextColumns: FunctionComponent<Page_Pagesections_PageSections_TextColumns>
                                 <StyledPreTitle>{preTitle}</StyledPreTitle>
                             )}
                             {title && (
-                                <StyledSectionTitle>{title}</StyledSectionTitle>
+                                <StyledSectionTitle center={true}>
+                                    {title}
+                                </StyledSectionTitle>
                             )}
                         </>
                     </GridItem>
@@ -28,10 +39,14 @@ const TextColumns: FunctionComponent<Page_Pagesections_PageSections_TextColumns>
                 <Container maxWidth={containerWidth} padding={'0'}>
                     {columns?.length &&
                         columns.map((col, i) => {
+                            const isSingleColumn = columns.length === 1;
                             return (
-                                <GridItem
+                                <StyledGridItem
+                                    className={classNames({
+                                        'is-single': isSingleColumn,
+                                    })}
                                     key={`${JSON.stringify(col)}-${i}`}
-                                    padding={0}
+                                    padding={2}
                                 >
                                     {col?.content && (
                                         <div
@@ -63,7 +78,7 @@ const TextColumns: FunctionComponent<Page_Pagesections_PageSections_TextColumns>
                                             </Link>
                                         </div>
                                     )}
-                                </GridItem>
+                                </StyledGridItem>
                             );
                         })}
                 </Container>
