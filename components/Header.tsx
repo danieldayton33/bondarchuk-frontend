@@ -15,7 +15,7 @@ const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
     align-items: center;
     height: auto;
     position: relative;
-    min-height: 40rem;
+    min-height: 30rem;
     h1 {
         z-index: 2;
         text-transform: uppercase;
@@ -42,6 +42,12 @@ const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
         margin-top: 10rem;
         width: 60%;
         min-height: 30rem;
+    }
+    @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+        .home-logo {
+            width: 80%;
+            min-height: 15rem;
+        }
     }
 `;
 const StyledPreTitle = styled.h2`
