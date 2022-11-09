@@ -7,9 +7,6 @@ import GridItem from '../GridItem';
 import styled from 'styled-components';
 import { useThemeSettings } from '../../lib/utils';
 import classNames from 'classnames';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { StyledFontAwesome } from '../SocialLinks';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const StyledBGImage = styled(Image)`
     z-index: -1;
@@ -30,6 +27,7 @@ const StyledContainer = styled.div<{ width: number }>`
         margin: 0 auto;
         span {
             margin: auto 2rem auto 0;
+            font-size: 1.5rem;
         }
         &:before,
         &:after {
@@ -103,11 +101,11 @@ const InstagramImages: FunctionComponent<
                 <GridItem span={1}>
                     <h2 ref={ref}>
                         <span>
-                            <FontAwesomeIcon
-                                size="1x"
-                                icon={faInstagram}
-                                color={'var(--white)'}
-                            />
+                            {/*<FontAwesomeIcon*/}
+                            {/*    size={'1x'}*/}
+                            {/*    icon={faInstagram}*/}
+                            {/*    color={'var(--white)'}*/}
+                            {/*/>*/}
                         </span>
 
                         {instagramHandle}

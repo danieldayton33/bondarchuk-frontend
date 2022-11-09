@@ -37,24 +37,20 @@ const PageSectionLoader: FunctionComponent<Props> = function ({
 }) {
     if (!(pageSections.length > 0)) return <></>;
     return (
-        <div>
-            {pageSections &&
-                pageSections.map((pageSection, i) => {
-                    const elementName = returnSectionType(pageSection);
-                    if (!elementName) return;
-                    const PSComponent = dynamic(
-                        () =>
-                            import(`../components/PageSections/${elementName}`),
-                    );
-                    // @ts-ignore
-                    return (
-                        <PSComponent
-                            key={`page-section-${i}`}
-                            {...pageSection}
-                        />
-                    );
-                })}
-        </div>
+        <>
+            {pageSections.map((section, k) => {
+                const elementName = returnSectionType(section);
+                if (!elementName) return;
+                const PSComponent = dynamic(
+                    () =>
+                        import(
+                            `../components/PageSections/${pageSectionComponents[elementName]}`
+                        ),
+                );
+                // @ts-ignore
+                return <PSComponent key={`page-section-${k}`} {...section} />;
+            })}
+        </>
     );
 };
 

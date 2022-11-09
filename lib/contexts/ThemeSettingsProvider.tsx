@@ -1,17 +1,15 @@
-import React, { createContext } from 'react';
+import { createContext, ReactNode } from 'react';
 import { ThemeSettings_Themesettings } from '../../generated/graphql';
 
 interface AppSettingsProps {
     themeSettings?: ThemeSettings_Themesettings;
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
 
 export const ThemeSettingsContext = createContext<AppSettingsProps>({});
 
-export const ThemeSettingsProvider = ({
-    themeSettings = {},
-    children = {},
-}) => {
+// @ts-ignore
+export const ThemeSettingsProvider = ({ themeSettings, children }) => {
     return (
         <ThemeSettingsContext.Provider
             value={{

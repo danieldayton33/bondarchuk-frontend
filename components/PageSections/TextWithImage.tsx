@@ -100,7 +100,6 @@ const TextWithImage: FunctionComponent<Page_Pagesections_PageSections_TextWithIm
     }) {
         const ref = useRef<HTMLDivElement | null>(null);
         const [width, setWidth] = useState(0);
-        console.log(width);
         useEffect(() => {
             if (ref.current) {
                 setWidth(ref.current?.clientWidth);

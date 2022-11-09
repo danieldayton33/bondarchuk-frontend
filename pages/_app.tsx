@@ -5,7 +5,6 @@ import '../styles/nprogress.css';
 import '@wordpress/block-library/build-style/common.css';
 import '@wordpress/block-library/build-style/style.css';
 import '@wordpress/block-library/build-style/theme.css';
-import type { AppProps } from 'next/app';
 import Theme from '../components/Theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
@@ -15,12 +14,14 @@ import { ThemeSettingsProvider } from '../lib/contexts/ThemeSettingsProvider';
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
-function MyApp({ Component, pageProps }: AppProps) {
+// @ts-ignore
+function MyApp({ Component, pageProps }) {
     const [queryClient] = useState(() => new QueryClient());
-    const { themeSettings } = pageProps;
     return (
         <Theme>
-            <ThemeSettingsProvider themeSettings={themeSettings}>
+            <ThemeSettingsProvider
+                themeSettings={pageProps?.themeSettings || {}}
+            >
                 <QueryClientProvider client={queryClient}>
                     <Component {...pageProps} />
                     <ReactQueryDevtools initialIsOpen={false} />

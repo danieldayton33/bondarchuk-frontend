@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div<{ maxWidth: string; padding: string }>`
@@ -11,6 +11,7 @@ type Props = {
     className?: string;
     maxWidth?: string;
     padding?: string;
+    children: ReactNode;
 };
 const Container: FunctionComponent<Props> = function ({
     className,

@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import {
     Art,
+    Maybe,
     Page_Pagesections_PageSections_CharacterArt,
 } from '../../generated/graphql';
 import Container from '../Container';
@@ -57,8 +58,9 @@ const StyledSliderGridItem = styled(GridItem)`
     position: relative;
 `;
 
-const returnSlides = (art: Art[] | null) => {
+const returnSlides = (art: Maybe<Art>[] | null) => {
     if (!art) return null;
+    // @ts-ignore
     return art?.map(({ featuredImage, excerpt, title, artFields }, i) => {
         return (
             <StyledArtGrid key={`art-slide-${i}`} columns={2}>

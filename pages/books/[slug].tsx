@@ -21,8 +21,6 @@ import styled from 'styled-components';
 import GridItem from '../../components/GridItem';
 import Container from '../../components/Container';
 import { FlexGridItem } from '../../components/PageSections/Books';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAmazon } from '@fortawesome/free-brands-svg-icons';
 import { StyledPreTitle, StyledSectionTitle } from '../../components/styled';
 import BookCard from '../../components/BookCard';
 
@@ -122,19 +120,7 @@ export default function SingleBook({
                                                 'Amazon Link'
                                             }
                                         >
-                                            <Button>
-                                                <span
-                                                    style={{
-                                                        marginRight: '1rem',
-                                                    }}
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faAmazon}
-                                                        size={'1x'}
-                                                    />
-                                                </span>
-                                                Buy Now
-                                            </Button>
+                                            <Button>Buy Now</Button>
                                         </a>
                                     </Link>
                                 )}

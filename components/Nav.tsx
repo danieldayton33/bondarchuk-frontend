@@ -35,6 +35,13 @@ const StyledNav = styled.nav`
             display: none !important;
         }
     }
+    .d-flex {
+        display: flex;
+        align-items: center;
+        &--end {
+            justify-content: flex-end;
+        }
+    }
 `;
 
 interface Props {
@@ -51,7 +58,7 @@ export default function Nav({
     return (
         <StyledNav>
             {menuItems && (
-                <div>
+                <div className={'d-flex'}>
                     <Link href="/">
                         <a
                             className={classNames('nav-link')}
@@ -99,8 +106,9 @@ export default function Nav({
             ) : (
                 <div></div>
             )}
-
-            <SocialLinks />
+            <div className={'d-flex d-flex--end'}>
+                <SocialLinks />
+            </div>
         </StyledNav>
     );
 }

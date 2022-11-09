@@ -1,14 +1,9 @@
 import styled from 'styled-components';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
-import { useState, FunctionComponent, ReactNode } from 'react';
+import { useState, FunctionComponent } from 'react';
 import classNames from 'classnames';
 import { KeenSliderOptions } from 'keen-slider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faChevronLeft,
-    faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
 
 const SliderWrapper = styled.div`
     display: grid;
@@ -150,7 +145,7 @@ const Slider: FunctionComponent<Props> = function ({
                         }
                         disabled={!loop && currentSlide === 0}
                     >
-                        <FontAwesomeIcon icon={faChevronLeft} />
+                        Previous
                     </SlideToggle>
                     <SlideToggle
                         title={'Next'}
@@ -165,7 +160,7 @@ const Slider: FunctionComponent<Props> = function ({
                                     1
                         }
                     >
-                        <FontAwesomeIcon icon={faChevronRight} />
+                        Next
                     </SlideToggle>
                 </div>
             )}
