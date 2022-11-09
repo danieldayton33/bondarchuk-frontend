@@ -1,48 +1,85 @@
 import Link from 'next/link';
-import { faGoodreads, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Maybe,
-    ThemeSettings_Themesettings_SocialLinks,
-} from '../generated/graphql';
 
-const StyledFontAwesome = styled(FontAwesomeIcon)`
-    color: var(--white);
+import styled from 'styled-components';
+import { useThemeSettings } from '../lib/utils';
+import Image from 'next/image';
+import InstagramIcon from './InstagramIcon';
+import { Instagram } from 'react-feather';
+import GoodreadsIcon from './GoodReads';
+
+export const StyledFontAwesome = styled(Instagram)<{ isDark: boolean }>`
+    color: var(${(props) => (props.isDark ? `--color-primary` : `--white`)});
     margin-right: 1rem;
+    object-fit: contain;
+    background-color: transparent;
+    padding: 0.75rem;
+    border: ${(props) =>
+        props.isDark
+            ? `1px solid var(--color-primary)`
+            : `1px solid var(--white)`};
+    border-radius: 100%;
+    transition: all 0.3s ease-in-out;
     &:hover {
-        color: var(--color-ternary-100);
+        background-color: ${(props) =>
+            props.isDark ? `var(--color-primary)` : `var(--white)`};
+        color: ${(props) =>
+            props.isDark ? `var(--white)` : `var(--color-primary)`};
+        transition: all 0.3s ease-in-out;
     }
 `;
-const SocialWrap = styled.div`
+const SocialWrap = styled.div<{ isDark: boolean }>`
     display: flex;
     justify-content: flex-end;
+    .social-link {
+        color: var(
+            ${(props) => (props.isDark ? `--color-primary` : `--white`)}
+        );
+        margin-right: 1rem;
+        object-fit: contain;
+        background-color: transparent;
+        padding: 0.5rem 1rem;
+        aspect-ratio: 1/1;
+        border: ${(props) =>
+            props.isDark
+                ? `1px solid var(--color-primary)`
+                : `1px solid var(--white)`};
+        border-radius: 50%;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+            background-color: ${(props) =>
+                props.isDark ? `var(--color-primary)` : `var(--white)`};
+            color: ${(props) =>
+                props.isDark ? `var(--white)` : `var(--color-primary)`};
+            transition: all 0.3s ease-in-out;
+        }
+    }
 `;
-export default function SocialLinks({
-    socialLinks,
-}: {
-    socialLinks?: Maybe<ThemeSettings_Themesettings_SocialLinks>;
-}) {
+export default function SocialLinks({ isDark = false }) {
+    const { themeSettings } = useThemeSettings();
+    const socialLinks = themeSettings?.socialLinks || {};
+    if (!socialLinks) return <></>;
     const { instgram, goodReads } = socialLinks || {};
     return (
-        <SocialWrap>
+        <SocialWrap isDark={isDark}>
             {goodReads && goodReads.url && (
                 <Link href={goodReads.url}>
                     <a
+                        className={'social-link'}
                         title={goodReads.title || 'Good Reads'}
                         target={goodReads.target || '_self'}
                     >
-                        <StyledFontAwesome size="2x" icon={faGoodreads} />
+                        <GoodreadsIcon color={'currentColor'} />
                     </a>
                 </Link>
             )}
             {instgram && instgram.url && (
                 <Link href={instgram.url}>
                     <a
+                        className={'social-link'}
                         title={instgram.title || 'Instagram'}
                         target={instgram.target || '_self'}
                     >
-                        <StyledFontAwesome size="2x" icon={faInstagram} />
+                        <InstagramIcon color={'currentColor'} />
                     </a>
                 </Link>
             )}

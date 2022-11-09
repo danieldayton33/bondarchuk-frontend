@@ -1,4 +1,5 @@
-import { Ref, useEffect, useState } from 'react';
+import { Ref, useContext, useEffect, useState } from 'react';
+import { ThemeSettingsContext } from './contexts/ThemeSettingsProvider';
 
 export function getQueryUri(): string {
     return process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
@@ -22,3 +23,5 @@ export function useHover(ref: { current: any }): boolean {
     }, [ref]);
     return value;
 }
+
+export const useThemeSettings = () => useContext(ThemeSettingsContext);

@@ -15,8 +15,8 @@ import Nav from './Nav';
 import Footer from './Footer';
 
 const Wrapper = styled.div`
-    margin: 5rem auto;
-    padding: 2rem;
+    margin: 5rem auto 0;
+    padding: 2rem 2rem 0;
 `;
 
 interface Props {
@@ -27,6 +27,7 @@ interface Props {
     menuItems?: Array<MenuItem>;
     themeSettings?: ThemeSettings_Themesettings;
     isFrontPage?: boolean;
+    preTitle?: string;
 }
 
 export default function Page({
@@ -37,6 +38,7 @@ export default function Page({
     children,
     menuItems,
     themeSettings,
+    preTitle,
 }: Props) {
     const { data: menu } = useQuery('menu-items', getMenu, {
         initialData: menuItems,
@@ -60,6 +62,7 @@ export default function Page({
                     title={title}
                     isFrontPage={isFrontPage}
                     themeSettings={theme}
+                    cursiveTitle={preTitle || title}
                 />
                 <Wrapper>{children}</Wrapper>
                 <Footer themeSettings={themeSettings} menuItems={menu} />

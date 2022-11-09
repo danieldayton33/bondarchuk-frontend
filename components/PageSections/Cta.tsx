@@ -7,6 +7,7 @@ import Grid from '../Grid';
 import GridItem from '../GridItem';
 import styled from 'styled-components';
 import Button from '../Button';
+import classNames from 'classnames';
 
 const StyledContent = styled(GridItem)<{ dark: boolean }>`
     color: ${(props) => (props.dark ? 'var(--white)' : 'var(--theme-primary)')};
@@ -46,7 +47,13 @@ const Cta: FunctionComponent<Page_Pagesections_PageSections_Cta> = function ({
                                 className={'bg-image'}
                             />
                         )}
-                        <div dangerouslySetInnerHTML={{ __html: content }} />
+                        <div
+                            className={classNames({
+                                darkBg: !!backgroundImage,
+                                'section-content': true,
+                            })}
+                            dangerouslySetInnerHTML={{ __html: content }}
+                        />
                         {link && (
                             <Link href={link.url || '/'}>
                                 <a

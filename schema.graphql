@@ -94,6 +94,8 @@ interface ContentNode {
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
+    "The Yoast SEO data of the ContentNode"
+    seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
     "The current status of the object"
@@ -203,6 +205,8 @@ interface NodeWithAuthor {
     authorDatabaseId: Int
     "The globally unique identifier of the author of the node"
     authorId: ID
+    "The globally unique ID for the object"
+    id: ID!
 }
 
 "A node that can have comments associated with it"
@@ -211,6 +215,8 @@ interface NodeWithComments {
     commentCount: Int
     "Whether the comments are open or closed for this particular post."
     commentStatus: String
+    "The globally unique ID for the object"
+    id: ID!
 }
 
 "A node that supports the content editor"
@@ -220,6 +226,8 @@ interface NodeWithContentEditor {
         "Format of the field output"
         format: PostObjectFieldFormatEnum
     ): String
+    "The globally unique ID for the object"
+    id: ID!
 }
 
 "A node that can have an excerpt"
@@ -229,98 +237,34 @@ interface NodeWithExcerpt {
         "Format of the field output"
         format: PostObjectFieldFormatEnum
     ): String
+    "The globally unique ID for the object"
+    id: ID!
 }
 
 "A node that can have a featured image set"
 interface NodeWithFeaturedImage {
-    conditionalTags: ConditionalTags @deprecated(reason: "Deprecated in favor of using Next.js pages")
-    "Connection between the ContentNode type and the ContentType type"
-    contentType: ContentNodeToContentTypeConnectionEdge
-    "The name of the Content Type the node belongs to"
-    contentTypeName: String!
-    "The unique identifier stored in the database"
-    databaseId: Int!
-    "Post publishing date."
-    date: String
-    "The publishing date set in GMT."
-    dateGmt: String
-    "The desired slug of the post"
-    desiredSlug: String
-    "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
-    editingLockedBy: ContentNodeToEditLockConnectionEdge
-    "The RSS enclosure for the object"
-    enclosure: String
-    "Connection between the ContentNode type and the EnqueuedScript type"
-    enqueuedScripts(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int
-    ): ContentNodeToEnqueuedScriptConnection
-    "Connection between the ContentNode type and the EnqueuedStylesheet type"
-    enqueuedStylesheets(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int
-    ): ContentNodeToEnqueuedStylesheetConnection
     "Connection between the NodeWithFeaturedImage type and the MediaItem type"
     featuredImage: NodeWithFeaturedImageToMediaItemConnectionEdge
     "The database identifier for the featured image node assigned to the content node"
     featuredImageDatabaseId: Int
     "Globally unique ID of the featured image assigned to the node"
     featuredImageId: ID
-    "The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table."
-    guid: String
-    "The unique resource identifier path"
+    "The globally unique ID for the object"
     id: ID!
-    "Whether the node is a Content Node"
-    isContentNode: Boolean!
-    "Whether the object is a node in the preview state"
-    isPreview: Boolean
-    "Whether the object is restricted from the current viewer"
-    isRestricted: Boolean
-    "Whether the node is a Term"
-    isTermNode: Boolean!
-    "The user that most recently edited the node"
-    lastEditedBy: ContentNodeToEditLastConnectionEdge
-    "The permalink of the post"
-    link: String
-    "The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time."
-    modified: String
-    "The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT."
-    modifiedGmt: String
-    "The database id of the preview node"
-    previewRevisionDatabaseId: Int
-    "Whether the object is a node in the preview state"
-    previewRevisionId: ID
-    "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
-    slug: String
-    "The current status of the object"
-    status: String
-    "The template assigned to a node of content"
-    template: ContentTemplate
-    templates: [String]
-    "The unique resource identifier path"
-    uri: String
 }
 
 "A node that can have page attributes"
 interface NodeWithPageAttributes {
+    "The globally unique ID for the object"
+    id: ID!
     "A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types."
     menuOrder: Int
 }
 
 "A node that can have revisions"
 interface NodeWithRevisions {
+    "The globally unique ID for the object"
+    id: ID!
     "True if the node is a revision of another node"
     isRevision: Boolean
     "If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node."
@@ -329,12 +273,18 @@ interface NodeWithRevisions {
 
 "A node that can have a template associated with it"
 interface NodeWithTemplate {
+    "The globally unique ID for the object"
+    id: ID!
     "The template assigned to the node"
     template: ContentTemplate
 }
 
 "A node that NodeWith a title"
 interface NodeWithTitle {
+    "The globally unique ID for the object"
+    id: ID!
+    "The Yoast SEO data of the ContentNode"
+    seo: PostTypeSEO
     "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
     title(
         "Format of the field output"
@@ -344,6 +294,8 @@ interface NodeWithTitle {
 
 "A node that can have trackbacks and pingbacks"
 interface NodeWithTrackbacks {
+    "The globally unique ID for the object"
+    id: ID!
     "Whether the pings are open or closed for this particular post."
     pingStatus: String
     "URLs that have been pinged."
@@ -422,15 +374,19 @@ interface UniformResourceIdentifiable {
     uri: String
 }
 
+union Book_Booksfields_RelatedBooks = Book
+
 "A union of Content Node Types that support revisions"
 union ContentRevisionUnion = Page | Post
 
 "Deprecated in favor of MenuItemLinkeable Interface"
 union MenuItemObjectUnion = Art | Book | Category | Page | Post | Tag
 
-union Page_Pagesections_PageSections = Page_Pagesections_PageSections_Books | Page_Pagesections_PageSections_Cta | Page_Pagesections_PageSections_TextColumns | Page_Pagesections_PageSections_TextWithImage
+union Page_Pagesections_PageSections = Page_Pagesections_PageSections_Books | Page_Pagesections_PageSections_CharacterArt | Page_Pagesections_PageSections_Cta | Page_Pagesections_PageSections_InstagramImages | Page_Pagesections_PageSections_TextColumns | Page_Pagesections_PageSections_TextWithImage
 
 union Page_Pagesections_PageSections_Books_Books = Book
+
+union Page_Pagesections_PageSections_CharacterArt_Art = Art
 
 "ACF Link field"
 type AcfLink {
@@ -444,6 +400,8 @@ type AcfLink {
 
 "The art type"
 type Art implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Art Fields&quot; was set to Show in GraphQL."
+    artFields: Art_Artfields
     "The id field matches the WP_Post-&gt;ID field."
     artId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
     conditionalTags: ConditionalTags @deprecated(reason: "Deprecated in favor of using Next.js pages")
@@ -521,19 +479,19 @@ type Art implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node &
     modified: String
     "The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT."
     modifiedGmt: String
-    "Connection between the art type and the art type"
+    "Connection between the Art type and the art type"
     preview: ArtToPreviewConnectionEdge
     "The database id of the preview node"
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "The Yoast SEO data of the art"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
     "The current status of the object"
     status: String
-    "The template assigned to a node of content"
+    "The template assigned to the node"
     template: ContentTemplate
     templates: [String]
     "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
@@ -545,10 +503,17 @@ type Art implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node &
     uri: String
 }
 
-"Connection between the art type and the art type"
+"Connection between the Art type and the art type"
 type ArtToPreviewConnectionEdge {
     "The node of the connection, without the edges"
     node: Art
+}
+
+"Field Group"
+type Art_Artfields implements AcfFieldGroup {
+    artistName: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
 }
 
 "Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from."
@@ -658,19 +623,19 @@ type Book implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     modified: String
     "The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT."
     modifiedGmt: String
-    "Connection between the book type and the book type"
+    "Connection between the Book type and the book type"
     preview: BookToPreviewConnectionEdge
     "The database id of the preview node"
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "The Yoast SEO data of the book"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
     "The current status of the object"
     status: String
-    "The template assigned to a node of content"
+    "The template assigned to the node"
     template: ContentTemplate
     templates: [String]
     "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
@@ -682,7 +647,7 @@ type Book implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     uri: String
 }
 
-"Connection between the book type and the book type"
+"Connection between the Book type and the book type"
 type BookToPreviewConnectionEdge {
     "The node of the connection, without the edges"
     node: Book
@@ -698,6 +663,8 @@ type Book_Booksfields implements AcfFieldGroup {
     goodReadsLink: AcfLink
     isComplete: Boolean
     progress: Book_Booksfields_Progress
+    relatedBooks: [Book_Booksfields_RelatedBooks]
+    seriesTitle: String
 }
 
 "Field Group"
@@ -723,7 +690,7 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
     ): CategoryToAncestorsCategoryConnection
     "The id field matches the WP_Post-&gt;ID field."
     categoryId: Int @deprecated(reason: "Deprecated in favor of databaseId")
-    "Connection between the category type and the category type"
+    "Connection between the category type and its children categories."
     children(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -737,7 +704,7 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
         where: CategoryToCategoryConnectionWhereArgs
     ): CategoryToCategoryConnection
     conditionalTags: ConditionalTags @deprecated(reason: "Deprecated in favor of using Next.js pages")
-    "Connection between the category type and the ContentNode type"
+    "Connection between the Category type and the ContentNode type"
     contentNodes(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -790,13 +757,13 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
     link: String
     "The human friendly name of the object."
     name: String
-    "Connection between the category type and the category type"
+    "Connection between the category type and its parent category."
     parent: CategoryToParentCategoryConnectionEdge
     "Database id of the parent node"
     parentDatabaseId: Int
     "The globally unique identifier of the parent node."
     parentId: ID
-    "Connection between the category type and the post type"
+    "Connection between the Category type and the post type"
     posts(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -813,7 +780,7 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
     seo: TaxonomySEO
     "An alphanumeric identifier for the object unique to its type."
     slug: String
-    "Connection between the category type and the Taxonomy type"
+    "Connection between the Category type and the Taxonomy type"
     taxonomy: CategoryToTaxonomyConnectionEdge
     "The name of the taxonomy that the object is associated with"
     taxonomyName: String
@@ -826,7 +793,7 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
     uri: String
 }
 
-"Connection between the category type and the category type"
+"Connection between the Category type and the category type"
 type CategoryToAncestorsCategoryConnection {
     "Edges for the CategoryToAncestorsCategoryConnection connection"
     edges: [CategoryToAncestorsCategoryConnectionEdge]
@@ -844,7 +811,7 @@ type CategoryToAncestorsCategoryConnectionEdge {
     node: Category
 }
 
-"Connection between the category type and the category type"
+"Connection between the Category type and the category type"
 type CategoryToCategoryConnection {
     "Edges for the CategoryToCategoryConnection connection"
     edges: [CategoryToCategoryConnectionEdge]
@@ -862,7 +829,7 @@ type CategoryToCategoryConnectionEdge {
     node: Category
 }
 
-"Connection between the category type and the ContentNode type"
+"Connection between the Category type and the ContentNode type"
 type CategoryToContentNodeConnection {
     "Edges for the CategoryToContentNodeConnection connection"
     edges: [CategoryToContentNodeConnectionEdge]
@@ -880,13 +847,13 @@ type CategoryToContentNodeConnectionEdge {
     node: ContentNode
 }
 
-"Connection between the category type and the category type"
+"Connection between the Category type and the category type"
 type CategoryToParentCategoryConnectionEdge {
     "The node of the connection, without the edges"
     node: Category
 }
 
-"Connection between the category type and the post type"
+"Connection between the Category type and the post type"
 type CategoryToPostConnection {
     "Edges for the CategoryToPostConnection connection"
     edges: [CategoryToPostConnectionEdge]
@@ -904,7 +871,7 @@ type CategoryToPostConnectionEdge {
     node: Post
 }
 
-"Connection between the category type and the Taxonomy type"
+"Connection between the Category type and the Taxonomy type"
 type CategoryToTaxonomyConnectionEdge {
     "The node of the connection, without the edges"
     node: Taxonomy
@@ -1573,7 +1540,12 @@ type MediaDetails {
     "Meta information associated with the mediaItem"
     meta: MediaItemMeta
     "The available sizes of the mediaItem"
-    sizes: [MediaSize]
+    sizes(
+        "The sizes to exclude. Will take precedence over `include`."
+        exclude: [MediaItemSizeEnum],
+        "The sizes to include. Can be overridden by `exclude`."
+        include: [MediaItemSizeEnum]
+    ): [MediaSize]
     "The width of the mediaItem"
     width: Int
 }
@@ -1623,7 +1595,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     commentCount: Int
     "Whether the comments are open or closed for this particular post."
     commentStatus: String
-    "Connection between the mediaItem type and the Comment type"
+    "Connection between the MediaItem type and the Comment type"
     comments(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -1725,7 +1697,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "The Yoast SEO data of the mediaItem"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The sizes attribute value for an image."
     sizes(
@@ -1786,7 +1758,7 @@ type MediaItemMeta {
     title: String
 }
 
-"Connection between the mediaItem type and the Comment type"
+"Connection between the MediaItem type and the Comment type"
 type MediaItemToCommentConnection {
     "Edges for the MediaItemToCommentConnection connection"
     edges: [MediaItemToCommentConnectionEdge]
@@ -2018,7 +1990,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     commentCount: Int
     "Whether the comments are open or closed for this particular post."
     commentStatus: String
-    "Connection between the page type and the Comment type"
+    "Connection between the Page type and the Comment type"
     comments(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2119,7 +2091,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     parentDatabaseId: Int
     "The globally unique identifier of the parent node."
     parentId: ID
-    "Connection between the page type and the page type"
+    "Connection between the Page type and the page type"
     preview: PageToPreviewConnectionEdge
     "The database id of the preview node"
     previewRevisionDatabaseId: Int
@@ -2127,7 +2099,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     previewRevisionId: ID
     "If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node."
     revisionOf: NodeWithRevisionsToContentNodeConnectionEdge
-    "Connection between the page type and the page type"
+    "Connection between the Page type and the page type"
     revisions(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2140,13 +2112,13 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
         "Arguments for filtering the connection"
         where: PageToRevisionConnectionWhereArgs
     ): PageToRevisionConnection
-    "The Yoast SEO data of the page"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
     "The current status of the object"
     status: String
-    "The template assigned to a node of content"
+    "The template assigned to the node"
     template: ContentTemplate
     templates: [String]
     "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
@@ -2158,7 +2130,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     uri: String
 }
 
-"Connection between the page type and the Comment type"
+"Connection between the Page type and the Comment type"
 type PageToCommentConnection {
     "Edges for the PageToCommentConnection connection"
     edges: [PageToCommentConnectionEdge]
@@ -2176,15 +2148,15 @@ type PageToCommentConnectionEdge {
     node: Comment
 }
 
-"Connection between the page type and the page type"
+"Connection between the Page type and the page type"
 type PageToPreviewConnectionEdge {
     "The node of the connection, without the edges"
     node: Page
 }
 
-"Connection between the page type and the page type"
+"Connection between the Page type and the page type"
 type PageToRevisionConnection {
-    "Edges for the pageToRevisionConnection connection"
+    "Edges for the PageToRevisionConnection connection"
     edges: [PageToRevisionConnectionEdge]
     "The nodes of the connection, without the edges"
     nodes: [Page]
@@ -2216,6 +2188,14 @@ type Page_Pagesections_PageSections_Books implements AcfFieldGroup {
 }
 
 "Group within the flex field"
+type Page_Pagesections_PageSections_CharacterArt implements AcfFieldGroup {
+    art: [Page_Pagesections_PageSections_CharacterArt_Art]
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    preTitle: String
+}
+
+"Group within the flex field"
 type Page_Pagesections_PageSections_Cta implements AcfFieldGroup {
     backgroundImage: MediaItem
     columnImage: MediaItem
@@ -2223,6 +2203,14 @@ type Page_Pagesections_PageSections_Cta implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     link: AcfLink
+}
+
+"Group within the flex field"
+type Page_Pagesections_PageSections_InstagramImages implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    images: [MediaItem]
+    instagramHandle: String
 }
 
 "Group within the flex field"
@@ -2286,7 +2274,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     authorDatabaseId: Int
     "The globally unique identifier of the author of the node"
     authorId: ID
-    "Connection between the post type and the category type"
+    "Connection between the Post type and the category type"
     categories(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2303,7 +2291,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     commentCount: Int
     "Whether the comments are open or closed for this particular post."
     commentStatus: String
-    "Connection between the post type and the Comment type"
+    "Connection between the Post type and the Comment type"
     comments(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2399,7 +2387,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     pingStatus: String
     "URLs that have been pinged."
     pinged: [String]
-    "Connection between the post type and the postFormat type"
+    "Connection between the Post type and the postFormat type"
     postFormats(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2414,7 +2402,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     ): PostToPostFormatConnection
     "The id field matches the WP_Post-&gt;ID field."
     postId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
-    "Connection between the post type and the post type"
+    "Connection between the Post type and the post type"
     preview: PostToPreviewConnectionEdge
     "The database id of the preview node"
     previewRevisionDatabaseId: Int
@@ -2422,7 +2410,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     previewRevisionId: ID
     "If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node."
     revisionOf: NodeWithRevisionsToContentNodeConnectionEdge
-    "Connection between the post type and the post type"
+    "Connection between the Post type and the post type"
     revisions(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2435,13 +2423,13 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
         "Arguments for filtering the connection"
         where: PostToRevisionConnectionWhereArgs
     ): PostToRevisionConnection
-    "The Yoast SEO data of the post"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
     "The current status of the object"
     status: String
-    "Connection between the post type and the tag type"
+    "Connection between the Post type and the tag type"
     tags(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2454,10 +2442,10 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
         "Arguments for filtering the connection"
         where: PostToTagConnectionWhereArgs
     ): PostToTagConnection
-    "The template assigned to a node of content"
+    "The template assigned to the node"
     template: ContentTemplate
     templates: [String]
-    "Connection between the post type and the TermNode type"
+    "Connection between the Post type and the TermNode type"
     terms(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2484,7 +2472,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
 "The postFormat type"
 type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable {
     conditionalTags: ConditionalTags @deprecated(reason: "Deprecated in favor of using Next.js pages")
-    "Connection between the postFormat type and the ContentNode type"
+    "Connection between the PostFormat type and the ContentNode type"
     contentNodes(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2539,7 +2527,7 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     name: String
     "The id field matches the WP_Post-&gt;ID field."
     postFormatId: Int @deprecated(reason: "Deprecated in favor of databaseId")
-    "Connection between the postFormat type and the post type"
+    "Connection between the PostFormat type and the post type"
     posts(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -2556,7 +2544,7 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     seo: TaxonomySEO
     "An alphanumeric identifier for the object unique to its type."
     slug: String
-    "Connection between the postFormat type and the Taxonomy type"
+    "Connection between the PostFormat type and the Taxonomy type"
     taxonomy: PostFormatToTaxonomyConnectionEdge
     "The name of the taxonomy that the object is associated with"
     taxonomyName: String
@@ -2569,7 +2557,7 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     uri: String
 }
 
-"Connection between the postFormat type and the ContentNode type"
+"Connection between the PostFormat type and the ContentNode type"
 type PostFormatToContentNodeConnection {
     "Edges for the PostFormatToContentNodeConnection connection"
     edges: [PostFormatToContentNodeConnectionEdge]
@@ -2587,7 +2575,7 @@ type PostFormatToContentNodeConnectionEdge {
     node: ContentNode
 }
 
-"Connection between the postFormat type and the post type"
+"Connection between the PostFormat type and the post type"
 type PostFormatToPostConnection {
     "Edges for the PostFormatToPostConnection connection"
     edges: [PostFormatToPostConnectionEdge]
@@ -2605,13 +2593,13 @@ type PostFormatToPostConnectionEdge {
     node: Post
 }
 
-"Connection between the postFormat type and the Taxonomy type"
+"Connection between the PostFormat type and the Taxonomy type"
 type PostFormatToTaxonomyConnectionEdge {
     "The node of the connection, without the edges"
     node: Taxonomy
 }
 
-"Connection between the post type and the category type"
+"Connection between the Post type and the category type"
 type PostToCategoryConnection {
     "Edges for the PostToCategoryConnection connection"
     edges: [PostToCategoryConnectionEdge]
@@ -2631,7 +2619,7 @@ type PostToCategoryConnectionEdge {
     node: Category
 }
 
-"Connection between the post type and the Comment type"
+"Connection between the Post type and the Comment type"
 type PostToCommentConnection {
     "Edges for the PostToCommentConnection connection"
     edges: [PostToCommentConnectionEdge]
@@ -2649,7 +2637,7 @@ type PostToCommentConnectionEdge {
     node: Comment
 }
 
-"Connection between the post type and the postFormat type"
+"Connection between the Post type and the postFormat type"
 type PostToPostFormatConnection {
     "Edges for the PostToPostFormatConnection connection"
     edges: [PostToPostFormatConnectionEdge]
@@ -2669,15 +2657,15 @@ type PostToPostFormatConnectionEdge {
     node: PostFormat
 }
 
-"Connection between the post type and the post type"
+"Connection between the Post type and the post type"
 type PostToPreviewConnectionEdge {
     "The node of the connection, without the edges"
     node: Post
 }
 
-"Connection between the post type and the post type"
+"Connection between the Post type and the post type"
 type PostToRevisionConnection {
-    "Edges for the postToRevisionConnection connection"
+    "Edges for the PostToRevisionConnection connection"
     edges: [PostToRevisionConnectionEdge]
     "The nodes of the connection, without the edges"
     nodes: [Post]
@@ -2693,7 +2681,7 @@ type PostToRevisionConnectionEdge {
     node: Post
 }
 
-"Connection between the post type and the tag type"
+"Connection between the Post type and the tag type"
 type PostToTagConnection {
     "Edges for the PostToTagConnection connection"
     edges: [PostToTagConnectionEdge]
@@ -2713,7 +2701,7 @@ type PostToTagConnectionEdge {
     node: Tag
 }
 
-"Connection between the post type and the TermNode type"
+"Connection between the Post type and the TermNode type"
 type PostToTermNodeConnection {
     "Edges for the PostToTermNodeConnection connection"
     edges: [PostToTermNodeConnectionEdge]
@@ -2815,8 +2803,14 @@ type PostTypeSEO {
 
 "The reading setting type"
 type ReadingSettings {
+    "The ID of the page that should display the latest posts"
+    pageForPosts: Int
+    "The ID of the page that should be displayed on the front page"
+    pageOnFront: Int
     "Blog pages show at most."
     postsPerPage: Int
+    "What to show on the front page"
+    showOnFront: String
 }
 
 "The payload for the registerUser mutation"
@@ -3127,7 +3121,9 @@ type RootQuery {
     "Returns a Comment"
     comment(
         "Unique identifier for the comment node."
-        id: ID!
+        id: ID!,
+        "Type of unique identifier to fetch a comment by. Default is Global ID"
+        idType: CommentNodeIdTypeEnum
     ): Comment
     "Connection between the RootQuery type and the Comment type"
     comments(
@@ -3952,7 +3948,7 @@ type SEOConfig {
     webmaster: SEOWebmaster
 }
 
-"he Yoast SEO search appearance content types fields"
+"The Yoast SEO search appearance content types fields"
 type SEOContentType {
     archive: SEOContentTypeArchive
     metaDesc: String
@@ -4046,6 +4042,7 @@ type SEOSocial {
     instagram: SEOSocialInstagram
     linkedIn: SEOSocialLinkedIn
     mySpace: SEOSocialMySpace
+    otherSocials: [String]
     pinterest: SEOSocialPinterest
     twitter: SEOSocialTwitter
     wikipedia: SEOSocialWikipedia
@@ -4172,7 +4169,13 @@ type Settings {
     "Settings of the the string Settings Group"
     generalSettingsUrl: String
     "Settings of the the integer Settings Group"
+    readingSettingsPageForPosts: Int
+    "Settings of the the integer Settings Group"
+    readingSettingsPageOnFront: Int
+    "Settings of the the integer Settings Group"
     readingSettingsPostsPerPage: Int
+    "Settings of the the string Settings Group"
+    readingSettingsShowOnFront: String
     "Settings of the the integer Settings Group"
     writingSettingsDefaultCategory: Int
     "Settings of the the string Settings Group"
@@ -4184,7 +4187,7 @@ type Settings {
 "The tag type"
 type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable {
     conditionalTags: ConditionalTags @deprecated(reason: "Deprecated in favor of using Next.js pages")
-    "Connection between the tag type and the ContentNode type"
+    "Connection between the Tag type and the ContentNode type"
     contentNodes(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -4237,7 +4240,7 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     link: String
     "The human friendly name of the object."
     name: String
-    "Connection between the tag type and the post type"
+    "Connection between the Tag type and the post type"
     posts(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
         after: String,
@@ -4256,7 +4259,7 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     slug: String
     "The id field matches the WP_Post-&gt;ID field."
     tagId: Int @deprecated(reason: "Deprecated in favor of databaseId")
-    "Connection between the tag type and the Taxonomy type"
+    "Connection between the Tag type and the Taxonomy type"
     taxonomy: TagToTaxonomyConnectionEdge
     "The name of the taxonomy that the object is associated with"
     taxonomyName: String
@@ -4269,7 +4272,7 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     uri: String
 }
 
-"Connection between the tag type and the ContentNode type"
+"Connection between the Tag type and the ContentNode type"
 type TagToContentNodeConnection {
     "Edges for the TagToContentNodeConnection connection"
     edges: [TagToContentNodeConnectionEdge]
@@ -4287,7 +4290,7 @@ type TagToContentNodeConnectionEdge {
     node: ContentNode
 }
 
-"Connection between the tag type and the post type"
+"Connection between the Tag type and the post type"
 type TagToPostConnection {
     "Edges for the TagToPostConnection connection"
     edges: [TagToPostConnectionEdge]
@@ -4305,7 +4308,7 @@ type TagToPostConnectionEdge {
     node: Post
 }
 
-"Connection between the tag type and the Taxonomy type"
+"Connection between the Tag type and the Taxonomy type"
 type TagToTaxonomyConnectionEdge {
     "The node of the connection, without the edges"
     node: Taxonomy
@@ -5016,6 +5019,14 @@ enum CategoryToPostConnectionWhereArgsTaxQueryOperator {
     NOT_IN
 }
 
+"The Type of Identifier used to fetch a single comment node. Default is \"ID\". To be used along with the \"id\" field."
+enum CommentNodeIdTypeEnum {
+    "Identify a resource by the Database ID."
+    DATABASE_ID
+    "Identify a resource by the (hashed) Global ID."
+    ID
+}
+
 "Options for ordering the connection"
 enum CommentsConnectionOrderbyEnum {
     "Order by browser user agent of the commenter."
@@ -5216,8 +5227,12 @@ enum MenuNodeIdTypeEnum {
     DATABASE_ID
     "Identify a menu node by the (hashed) Global ID."
     ID
-    "Identify a menu node by it's name"
+    "Identify a menu node by the slug of menu location to which it is assigned"
+    LOCATION
+    "Identify a menu node by its name"
     NAME
+    "Identify a menu node by its slug"
+    SLUG
 }
 
 "The MimeType of the object"
@@ -5350,6 +5365,8 @@ enum MimeTypeEnum {
     IMAGE_JPEG
     "MimeType image/png"
     IMAGE_PNG
+    "MimeType image/svg+xml"
+    IMAGE_SVG_XML
     "MimeType image/tiff"
     IMAGE_TIFF
     "MimeType image/webp"
@@ -5992,6 +6009,8 @@ input CategoryToCategoryConnectionWhereArgs {
     slug: [String]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -6004,7 +6023,7 @@ input CategoryToContentNodeConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -6075,7 +6094,7 @@ input CategoryToPostConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -6111,9 +6130,9 @@ input CategoryToPostConnectionWhereArgs {
     tagIn: [ID]
     "Array of tag IDs, used to display objects from one tag OR another"
     tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
+    "Array of tag slugs, used to display objects from one tag AND another"
     tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
+    "Array of tag slugs, used to include objects in ANY specified tags"
     tagSlugIn: [String]
     taxQuery: CategoryToPostConnectionWhereArgsTaxQuery
     "Title of the object"
@@ -6168,7 +6187,7 @@ input CommentToCommentConnectionWhereArgs {
     contentIdIn: [ID]
     "Array of content object IDs to exclude affiliated comments for."
     contentIdNotIn: [ID]
-    "Content object name to retrieve affiliated comments for."
+    "Content object name (i.e. slug ) to retrieve affiliated comments for."
     contentName: String
     "Content Object parent ID to retrieve affiliated comments for."
     contentParent: Int
@@ -6230,7 +6249,7 @@ input CommentToParentCommentConnectionWhereArgs {
     contentIdIn: [ID]
     "Array of content object IDs to exclude affiliated comments for."
     contentIdNotIn: [ID]
-    "Content object name to retrieve affiliated comments for."
+    "Content object name (i.e. slug ) to retrieve affiliated comments for."
     contentName: String
     "Content Object parent ID to retrieve affiliated comments for."
     contentParent: Int
@@ -6268,7 +6287,7 @@ input ContentTypeToContentNodeConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -6721,7 +6740,7 @@ input HierarchicalContentNodeToContentNodeAncestorsConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -6778,7 +6797,7 @@ input HierarchicalContentNodeToContentNodeChildrenConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -6859,7 +6878,7 @@ input MediaItemToCommentConnectionWhereArgs {
     contentIdIn: [ID]
     "Array of content object IDs to exclude affiliated comments for."
     contentIdNotIn: [ID]
-    "Content object name to retrieve affiliated comments for."
+    "Content object name (i.e. slug ) to retrieve affiliated comments for."
     contentName: String
     "Content Object parent ID to retrieve affiliated comments for."
     contentParent: Int
@@ -6891,7 +6910,7 @@ input MediaItemToCommentConnectionWhereArgs {
 
 "Arguments for filtering the MenuItemToMenuItemConnection connection"
 input MenuItemToMenuItemConnectionWhereArgs {
-    "The ID of the object"
+    "The database ID of the object"
     id: Int
     "The menu location for the menu being queried"
     location: MenuLocationEnum
@@ -6903,7 +6922,7 @@ input MenuItemToMenuItemConnectionWhereArgs {
 
 "Arguments for filtering the MenuToMenuItemConnection connection"
 input MenuToMenuItemConnectionWhereArgs {
-    "The ID of the object"
+    "The database ID of the object"
     id: Int
     "The menu location for the menu being queried"
     location: MenuLocationEnum
@@ -6945,7 +6964,7 @@ input PageToCommentConnectionWhereArgs {
     contentIdIn: [ID]
     "Array of content object IDs to exclude affiliated comments for."
     contentIdNotIn: [ID]
-    "Content object name to retrieve affiliated comments for."
+    "Content object name (i.e. slug ) to retrieve affiliated comments for."
     contentName: String
     "Content Object parent ID to retrieve affiliated comments for."
     contentParent: Int
@@ -6975,7 +6994,7 @@ input PageToCommentConnectionWhereArgs {
     userId: ID
 }
 
-"Arguments for filtering the pageToRevisionConnection connection"
+"Arguments for filtering the PageToRevisionConnection connection"
 input PageToRevisionConnectionWhereArgs {
     "The user that's connected as the author of the object. Use the userId for the author object."
     author: Int
@@ -6989,7 +7008,7 @@ input PageToRevisionConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7066,7 +7085,7 @@ input PostFormatToContentNodeConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7137,7 +7156,7 @@ input PostFormatToPostConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7173,9 +7192,9 @@ input PostFormatToPostConnectionWhereArgs {
     tagIn: [ID]
     "Array of tag IDs, used to display objects from one tag OR another"
     tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
+    "Array of tag slugs, used to display objects from one tag AND another"
     tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
+    "Array of tag slugs, used to include objects in ANY specified tags"
     tagSlugIn: [String]
     taxQuery: PostFormatToPostConnectionWhereArgsTaxQuery
     "Title of the object"
@@ -7286,6 +7305,8 @@ input PostToCategoryConnectionWhereArgs {
     slug: [String]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -7322,7 +7343,7 @@ input PostToCommentConnectionWhereArgs {
     contentIdIn: [ID]
     "Array of content object IDs to exclude affiliated comments for."
     contentIdNotIn: [ID]
-    "Content object name to retrieve affiliated comments for."
+    "Content object name (i.e. slug ) to retrieve affiliated comments for."
     contentName: String
     "Content Object parent ID to retrieve affiliated comments for."
     contentParent: Int
@@ -7392,11 +7413,13 @@ input PostToPostFormatConnectionWhereArgs {
     slug: [String]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
 
-"Arguments for filtering the postToRevisionConnection connection"
+"Arguments for filtering the PostToRevisionConnection connection"
 input PostToRevisionConnectionWhereArgs {
     "The user that's connected as the author of the object. Use the userId for the author object."
     author: Int
@@ -7418,7 +7441,7 @@ input PostToRevisionConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7454,9 +7477,9 @@ input PostToRevisionConnectionWhereArgs {
     tagIn: [ID]
     "Array of tag IDs, used to display objects from one tag OR another"
     tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
+    "Array of tag slugs, used to display objects from one tag AND another"
     tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
+    "Array of tag slugs, used to include objects in ANY specified tags"
     tagSlugIn: [String]
     taxQuery: PostToRevisionConnectionWhereArgsTaxQuery
     "Title of the object"
@@ -7519,6 +7542,8 @@ input PostToTagConnectionWhereArgs {
     slug: [String]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -7565,6 +7590,8 @@ input PostToTermNodeConnectionWhereArgs {
     taxonomies: [TaxonomyEnum]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -7633,7 +7660,7 @@ input RootQueryToArtConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7688,7 +7715,7 @@ input RootQueryToBookConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7777,6 +7804,8 @@ input RootQueryToCategoryConnectionWhereArgs {
     slug: [String]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -7813,7 +7842,7 @@ input RootQueryToCommentConnectionWhereArgs {
     contentIdIn: [ID]
     "Array of content object IDs to exclude affiliated comments for."
     contentIdNotIn: [ID]
-    "Content object name to retrieve affiliated comments for."
+    "Content object name (i.e. slug ) to retrieve affiliated comments for."
     contentName: String
     "Content Object parent ID to retrieve affiliated comments for."
     contentParent: Int
@@ -7851,7 +7880,7 @@ input RootQueryToContentNodeConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7908,7 +7937,7 @@ input RootQueryToContentRevisionUnionConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -7971,7 +8000,7 @@ input RootQueryToMediaItemConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -8022,7 +8051,7 @@ input RootQueryToMediaItemConnectionWhereArgsTaxQuery {
 
 "Arguments for filtering the RootQueryToMenuConnection connection"
 input RootQueryToMenuConnectionWhereArgs {
-    "The ID of the object"
+    "The database ID of the object"
     id: Int
     "The menu location for the menu being queried"
     location: MenuLocationEnum
@@ -8032,7 +8061,7 @@ input RootQueryToMenuConnectionWhereArgs {
 
 "Arguments for filtering the RootQueryToMenuItemConnection connection"
 input RootQueryToMenuItemConnectionWhereArgs {
-    "The ID of the object"
+    "The database ID of the object"
     id: Int
     "The menu location for the menu being queried"
     location: MenuLocationEnum
@@ -8056,7 +8085,7 @@ input RootQueryToPageConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -8137,7 +8166,7 @@ input RootQueryToPostConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -8173,9 +8202,9 @@ input RootQueryToPostConnectionWhereArgs {
     tagIn: [ID]
     "Array of tag IDs, used to display objects from one tag OR another"
     tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
+    "Array of tag slugs, used to display objects from one tag AND another"
     tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
+    "Array of tag slugs, used to include objects in ANY specified tags"
     tagSlugIn: [String]
     taxQuery: RootQueryToPostConnectionWhereArgsTaxQuery
     "Title of the object"
@@ -8238,6 +8267,8 @@ input RootQueryToPostFormatConnectionWhereArgs {
     slug: [String]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -8282,6 +8313,8 @@ input RootQueryToTagConnectionWhereArgs {
     slug: [String]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -8328,6 +8361,8 @@ input RootQueryToTermNodeConnectionWhereArgs {
     taxonomies: [TaxonomyEnum]
     "Array of term taxonomy IDs, to match when querying terms."
     termTaxonomId: [ID]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomyId: [ID]
     "Whether to prime meta caches for matched terms. Default true."
     updateTermMetaCache: Boolean
 }
@@ -8382,7 +8417,7 @@ input TagToContentNodeConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -8453,7 +8488,7 @@ input TagToPostConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -8489,9 +8524,9 @@ input TagToPostConnectionWhereArgs {
     tagIn: [ID]
     "Array of tag IDs, used to display objects from one tag OR another"
     tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
+    "Array of tag slugs, used to display objects from one tag AND another"
     tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
+    "Array of tag slugs, used to include objects in ANY specified tags"
     tagSlugIn: [String]
     taxQuery: TagToPostConnectionWhereArgsTaxQuery
     "Title of the object"
@@ -8752,8 +8787,14 @@ input UpdateSettingsInput {
     generalSettingsTitle: String
     "Site URL."
     generalSettingsUrl: String
+    "The ID of the page that should display the latest posts"
+    readingSettingsPageForPosts: Int
+    "The ID of the page that should be displayed on the front page"
+    readingSettingsPageOnFront: Int
     "Blog pages show at most."
     readingSettingsPostsPerPage: Int
+    "What to show on the front page"
+    readingSettingsShowOnFront: String
     "Default post category."
     writingSettingsDefaultCategory: Int
     "Default post format."
@@ -8850,7 +8891,7 @@ input UserToCommentConnectionWhereArgs {
     contentIdIn: [ID]
     "Array of content object IDs to exclude affiliated comments for."
     contentIdNotIn: [ID]
-    "Content object name to retrieve affiliated comments for."
+    "Content object name (i.e. slug ) to retrieve affiliated comments for."
     contentName: String
     "Content Object parent ID to retrieve affiliated comments for."
     contentParent: Int
@@ -8888,7 +8929,7 @@ input UserToContentRevisionUnionConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -8951,7 +8992,7 @@ input UserToMediaItemConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -9014,7 +9055,7 @@ input UserToPageConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -9085,7 +9126,7 @@ input UserToPostConnectionWhereArgs {
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
     hasPassword: Boolean
-    "Specific ID of the object"
+    "Specific database ID of the object"
     id: Int
     "Array of IDs for the objects to retrieve"
     in: [ID]
@@ -9121,9 +9162,9 @@ input UserToPostConnectionWhereArgs {
     tagIn: [ID]
     "Array of tag IDs, used to display objects from one tag OR another"
     tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
+    "Array of tag slugs, used to display objects from one tag AND another"
     tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
+    "Array of tag slugs, used to include objects in ANY specified tags"
     tagSlugIn: [String]
     taxQuery: UserToPostConnectionWhereArgsTaxQuery
     "Title of the object"

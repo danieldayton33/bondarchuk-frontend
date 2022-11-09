@@ -8,29 +8,50 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
     Book,
+    Maybe,
     MenuItem,
     ThemeSettings_Themesettings,
 } from '../../generated/graphql';
 import { GetStaticPropsContext } from 'next';
 import { useQuery } from 'react-query';
 import Page from '../../components/Page';
-import ProgressBar from '../../components/ProgressBar';
 import Button from '../../components/Button';
 import Grid from '../../components/Grid';
 import styled from 'styled-components';
 import GridItem from '../../components/GridItem';
-import { ParsedUrlQuery } from 'querystring';
+import Container from '../../components/Container';
+import { FlexGridItem } from '../../components/PageSections/Books';
+import { StyledPreTitle, StyledSectionTitle } from '../../components/styled';
+import BookCard from '../../components/BookCard';
 
 const BookWrap = styled.div`
     display: flex;
     justify-content: space-between;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--color-primary);
 `;
-const CoverWrap = styled(GridItem)`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+const StyledFlexGirdItem = styled(FlexGridItem)`
+    .image-wrap {
+        box-shadow: var(--shadow-elevation-medium);
+    }
 `;
 
+const RelatedFlexGridItem = styled(FlexGridItem)`
+    flex-direction: column;
+`;
+const StyledGridItem = styled(GridItem)`
+    .book-title {
+        &:after {
+            margin-top: 2rem;
+            content: '';
+            display: block;
+            width: 5rem;
+            height: 3px;
+            background-color: var(--color-primary);
+        }
+    }
+`;
 export default function SingleBook({
     bookData,
     menuItems,
@@ -50,14 +71,8 @@ export default function SingleBook({
     );
     if (!data) return <h1>Loading...</h1>;
     const { title, featuredImage, content, seo, booksFields }: Book = data;
-    const {
-        amazonLink,
-        goodReadsLink,
-        isComplete,
-        completionDate,
-        progress,
-        coverImage,
-    } = booksFields || {};
+    const { amazonLink, goodReadsLink, coverImage, seriesTitle, relatedBooks } =
+        booksFields || {};
     return (
         <Page
             featuredImage={featuredImage}
@@ -65,77 +80,111 @@ export default function SingleBook({
             seo={seo}
             menuItems={menuItems}
             themeSettings={themeSettings}
+            preTitle={'Books'}
         >
-            <Grid columns={3}>
-                <CoverWrap>
-                    {coverImage && coverImage?.mediaItemUrl && (
-                        <Image
-                            height={400}
-                            width={300}
-                            objectFit={'contain'}
-                            src={coverImage.mediaItemUrl}
-                            alt={
-                                coverImage.altText || `Cover Image for ${title}`
-                            }
-                        />
-                    )}
-                    <BookWrap>
-                        {amazonLink?.url && (
-                            <Link href={amazonLink.url} passHref={true}>
-                                <a
-                                    target={amazonLink.target || '_self'}
-                                    title={amazonLink.title || 'Amazon Link'}
-                                >
-                                    <Button>Buy Now</Button>
-                                </a>
-                            </Link>
-                        )}
-                        {goodReadsLink?.url && (
-                            <Link href={goodReadsLink.url} passHref={true}>
-                                <a
-                                    target={goodReadsLink.target || '_self'}
-                                    title={
-                                        goodReadsLink.title || 'Good Reads Link'
+            <Container maxWidth={'xl'}>
+                <Grid columns={2}>
+                    <StyledFlexGirdItem>
+                        {coverImage && coverImage?.mediaItemUrl && (
+                            <div className={'image-wrap'}>
+                                <Image
+                                    height={600}
+                                    width={400}
+                                    objectFit={'cover'}
+                                    src={coverImage.mediaItemUrl}
+                                    alt={
+                                        coverImage.altText ||
+                                        `Cover Image for ${title}`
                                     }
-                                >
-                                    <Button>Good Reads</Button>
-                                </a>
-                            </Link>
+                                />
+                            </div>
                         )}
-                    </BookWrap>
+                    </StyledFlexGirdItem>
 
-                    {!isComplete &&
-                        progress?.completePages &&
-                        progress?.totalPages && (
-                            <ProgressBar
-                                totalPages={progress.totalPages}
-                                completePages={progress.completePages}
+                    {content && (
+                        <StyledGridItem>
+                            <h4 className={'uppercase-wide'}>{seriesTitle}</h4>
+                            <h2 className={'book-title'}>{title}</h2>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: content }}
                             />
-                        )}
-                    {completionDate && (
-                        <div>
-                            {isComplete ? 'Publish Date' : 'Expected Release'}:{' '}
-                            {completionDate}
-                        </div>
+                            <BookWrap>
+                                {amazonLink?.url && (
+                                    <Link href={amazonLink.url} passHref={true}>
+                                        <a
+                                            target={
+                                                amazonLink.target || '_self'
+                                            }
+                                            title={
+                                                amazonLink.title ||
+                                                'Amazon Link'
+                                            }
+                                        >
+                                            <Button>Buy Now</Button>
+                                        </a>
+                                    </Link>
+                                )}
+                                {goodReadsLink?.url && (
+                                    <Link
+                                        href={goodReadsLink.url}
+                                        passHref={true}
+                                    >
+                                        <a
+                                            target={
+                                                goodReadsLink.target || '_self'
+                                            }
+                                            title={
+                                                goodReadsLink.title ||
+                                                'Good Reads Link'
+                                            }
+                                        >
+                                            <Button>Good Reads</Button>
+                                        </a>
+                                    </Link>
+                                )}
+                            </BookWrap>
+                        </StyledGridItem>
                     )}
-                </CoverWrap>
-                {content && (
-                    <GridItem span={2}>
-                        <div dangerouslySetInnerHTML={{ __html: content }} />
-                    </GridItem>
-                )}
-            </Grid>
+                </Grid>
+            </Container>
+            {relatedBooks && relatedBooks.length > 0 && (
+                <Container padding={'0 0 5rem'}>
+                    <Grid columns={3}>
+                        <GridItem span={3}>
+                            <StyledPreTitle className={'pre-title'}>
+                                Related Books
+                            </StyledPreTitle>
+                            <StyledSectionTitle center={true}>
+                                Related Books
+                            </StyledSectionTitle>
+                        </GridItem>
+                        {relatedBooks.map((book: Maybe<Book>, i) => {
+                            if (!book) return null;
+                            return (
+                                <RelatedFlexGridItem
+                                    key={`book-card-related-${i}`}
+                                >
+                                    <BookCard
+                                        {...book}
+                                        isRelated={true}
+                                        showExcerpt={false}
+                                    />
+                                    <h3 className={'related-title'}>
+                                        {book.title}
+                                    </h3>
+                                </RelatedFlexGridItem>
+                            );
+                        })}
+                    </Grid>
+                </Container>
+            )}
         </Page>
     );
 }
 
-interface IParams extends ParsedUrlQuery {
-    slug: string;
-}
 export async function getStaticProps(context: GetStaticPropsContext) {
-    const slug = context?.params?.slug as unknown as IParams;
-    // @ts-ignore
-    const bookData = await getBookBySlug({ slug: slug });
+    const slug = context?.params?.slug || '';
+    const bookData = await getBookBySlug({ slug: slug.toString() });
     const menuItems = await getMenu();
     const themeSettings = await getThemeSettings();
     return {

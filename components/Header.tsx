@@ -11,13 +11,13 @@ import classNames from 'classnames';
 const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     height: auto;
     position: relative;
+    min-height: 40rem;
     h1 {
         z-index: 2;
-        margin-top: 10rem;
         text-transform: uppercase;
         letter-spacing: 0.75rem;
         color: var(--white);
@@ -25,6 +25,7 @@ const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
         font-family: var(--font-highlight);
         text-align: center;
         line-height: 5rem;
+        padding: 5rem 0;
         &.header-title {
             &__home {
                 margin-top: 0;
@@ -33,7 +34,7 @@ const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
                 font-weight: 400;
                 letter-spacing: 0;
                 line-height: 2.5rem;
-                padding-bottom: 5rem;
+                padding: 0 2rem 5rem;
             }
         }
     }
@@ -45,10 +46,11 @@ const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
 `;
 const StyledPreTitle = styled.h2`
     position: absolute;
+    bottom: 10rem;
     font-family: var(--font-cursive);
-    font-size: clamp(2.5rem, 4vw + 1rem, 8rem);
-    color: var(--color-secondary);
-    opacity: 0.8;
+    font-size: clamp(6rem, 4vw + 1rem, 8rem);
+    color: var(--white);
+    opacity: 0.2;
 `;
 interface Props {
     featuredImage?: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;
@@ -56,6 +58,7 @@ interface Props {
     cursiveTitle?: Maybe<String>;
     isFrontPage?: boolean;
     themeSettings?: ThemeSettings_Themesettings;
+    preTitle?: Maybe<String> | undefined;
 }
 export default function Header({
     featuredImage,
@@ -64,7 +67,7 @@ export default function Header({
     isFrontPage,
     themeSettings,
 }: Props) {
-    const headerImage = featuredImage || DEFAULT_FEATURED;
+    const headerImage = DEFAULT_FEATURED;
     return (
         <StyledHeader isFrontPage={isFrontPage}>
             {headerImage && headerImage.node?.mediaItemUrl && (
@@ -77,7 +80,9 @@ export default function Header({
                     objectFit={'cover'}
                 />
             )}
-            {cursiveTitle && <StyledPreTitle>{cursiveTitle}</StyledPreTitle>}
+            {!isFrontPage && cursiveTitle && (
+                <StyledPreTitle>{cursiveTitle}</StyledPreTitle>
+            )}
             {isFrontPage && themeSettings?.siteLogo?.mediaItemUrl && (
                 <div className={'home-logo'}>
                     <Image

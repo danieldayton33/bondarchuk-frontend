@@ -26,13 +26,20 @@ const StyledNav = styled.nav`
         font-family: var(--font-highlight), cursive;
         letter-spacing: 0.15rem;
         &:hover {
-            color: var(--color-ternary-100);
+            color: var(--color-secondary);
             transition: 0.25s;
         }
     }
     .logo-link {
         &__home {
             display: none !important;
+        }
+    }
+    .d-flex {
+        display: flex;
+        align-items: center;
+        &--end {
+            justify-content: flex-end;
         }
     }
 `;
@@ -47,11 +54,20 @@ export default function Nav({
     themeSettings,
     isFrontPage = false,
 }: Props) {
-    const { siteLogo, socialLinks } = themeSettings || {};
+    const { siteLogo } = themeSettings || {};
     return (
         <StyledNav>
             {menuItems && (
-                <div>
+                <div className={'d-flex'}>
+                    <Link href="/">
+                        <a
+                            className={classNames('nav-link')}
+                            title={'Return Home'}
+                            target={'_self'}
+                        >
+                            Home
+                        </a>
+                    </Link>
                     {menuItems.map((link, i) => {
                         return (
                             <Link href={link.path || '/'} key={`menu-item${i}`}>
@@ -67,27 +83,32 @@ export default function Nav({
                     })}
                 </div>
             )}
-
-            <Link href={'/'}>
-                <a title={'Home'} style={{ textAlign: 'center' }}>
-                    {siteLogo && siteLogo?.mediaItemUrl ? (
-                        <Image
-                            src={siteLogo.mediaItemUrl}
-                            alt={siteLogo.altText || 'Jillian Site'}
-                            height={80}
-                            width={200}
-                            objectFit={'contain'}
-                            className={classNames({
-                                'logo-link': true,
-                                'logo-link__home': isFrontPage,
-                            })}
-                        />
-                    ) : (
-                        'Home'
-                    )}
-                </a>
-            </Link>
-            <SocialLinks socialLinks={socialLinks} />
+            {isFrontPage ? (
+                <Link href={'/'}>
+                    <a title={'Home'} style={{ textAlign: 'center' }}>
+                        {siteLogo && siteLogo?.mediaItemUrl ? (
+                            <Image
+                                src={siteLogo.mediaItemUrl}
+                                alt={siteLogo.altText || 'Jillian Site'}
+                                height={80}
+                                width={200}
+                                objectFit={'contain'}
+                                className={classNames({
+                                    'logo-link': true,
+                                    'logo-link__home': isFrontPage,
+                                })}
+                            />
+                        ) : (
+                            'Home'
+                        )}
+                    </a>
+                </Link>
+            ) : (
+                <div></div>
+            )}
+            <div className={'d-flex d-flex--end'}>
+                <SocialLinks />
+            </div>
         </StyledNav>
     );
 }

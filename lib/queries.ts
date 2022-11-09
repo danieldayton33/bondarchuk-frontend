@@ -1,10 +1,10 @@
 import { gql, request } from 'graphql-request';
 import { getQueryUri } from './utils';
 import {
-    BOOKS_FIELDS,
     MENU_QUERY,
     PageSectionFragment,
     THEME_SETTINGS,
+    BOOK_FRAGMENT,
 } from './fragments';
 
 export async function getPage({ uri = '' }) {
@@ -58,10 +58,11 @@ export async function getAllBooks({ first = 10 }) {
             query getAllBooks($first: Int) {
                 books(first: $first) {
                     nodes {
-                        ${BOOKS_FIELDS}
+                        ...BookFragment
                     }
                 }
             }
+            ${BOOK_FRAGMENT}
         `,
         {
             first: first,
@@ -77,9 +78,10 @@ export async function getBookBySlug({ slug = '' }) {
         gql`
             query getBookBySlug($id: ID!) {
                 book(id: $id, idType: SLUG) {
-                    ${BOOKS_FIELDS}
+                    ...BookFragment
                 }
             }
+            ${BOOK_FRAGMENT}
         `,
         { id: slug },
     );

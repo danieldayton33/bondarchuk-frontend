@@ -11,5 +11,6 @@ const theme: DefaultTheme = {
 };
 
 export default function Theme({ children }: { children: JSX.Element }) {
+    // @ts-ignore
     return <ThemeProvider theme={theme}>{children} </ThemeProvider>;
 }

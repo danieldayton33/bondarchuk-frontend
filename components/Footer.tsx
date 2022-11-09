@@ -14,8 +14,16 @@ const LinkWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    justify-content: center;
     ul {
         list-style-type: none;
+        display: flex;
+        li {
+            &:not(:last-of-type) {
+                margin-right: clamp(2rem, 4vw, 5rem);
+            }
+        }
     }
     a {
         color: var(--white);
@@ -24,9 +32,15 @@ const LinkWrap = styled.div`
         font-family: var(--font-highlight), cursive;
         letter-spacing: 0.15rem;
         &:hover {
-            color: var(--color-ternary-100);
+            color: var(--color-secondary);
         }
     }
+`;
+
+const StyledGridItem = styled(GridItem)`
+    display: flex;
+    align-self: center;
+    justify-content: flex-end;
 `;
 export default function Footer({
     themeSettings,
@@ -35,7 +49,7 @@ export default function Footer({
     themeSettings?: ThemeSettings_Themesettings;
     menuItems?: Array<MenuItem>;
 }) {
-    const { siteLogo, socialLinks } = themeSettings || {};
+    const { siteLogo } = themeSettings || {};
     return (
         <StyledFooter>
             <Container maxWidth={'xxl'}>
@@ -83,9 +97,9 @@ export default function Footer({
                             </ul>
                         )}
                     </LinkWrap>
-                    <GridItem>
-                        <SocialLinks socialLinks={socialLinks} />
-                    </GridItem>
+                    <StyledGridItem>
+                        <SocialLinks />
+                    </StyledGridItem>
                 </Grid>
             </Container>
         </StyledFooter>
