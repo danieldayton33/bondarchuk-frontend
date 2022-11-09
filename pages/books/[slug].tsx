@@ -188,6 +188,7 @@ export default function SingleBook({
 export async function getStaticProps(context: GetStaticPropsContext) {
     const slug = context?.params?.slug || '';
     const bookData = await getBookBySlug({ slug: slug.toString() });
+    if (!bookData) return { notFound: true };
     const menuItems = await getMenu();
     const themeSettings = await getThemeSettings();
     return {

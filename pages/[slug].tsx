@@ -64,6 +64,11 @@ interface IParams extends ParsedUrlQuery {
 export async function getStaticProps(context: GetStaticPropsContext) {
     const slug = context?.params?.slug as unknown as IParams;
     const pageData = await getPage({ uri: `/${slug}` });
+    if (!pageData) {
+        return {
+            notFound: true,
+        };
+    }
     const menuItems = await getMenu();
     const themeSettings = await getThemeSettings();
     return {
