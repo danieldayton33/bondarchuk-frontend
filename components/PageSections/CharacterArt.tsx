@@ -91,7 +91,7 @@ const returnSlides = (art: Maybe<Art>[] | null) => {
                                 title ||
                                 'Featured Image'
                             }
-                            objectFit={'cover'}
+                            objectFit={'contain'}
                         />
                     </GridItem>
                 )}
