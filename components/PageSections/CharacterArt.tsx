@@ -17,7 +17,7 @@ const StyledArtGrid = styled(Grid)`
     .art {
         &--image {
             min-height: 50rem;
-            height: 80vh;
+            height: 50vh;
         }
         &--content {
             padding-top: 10rem;
@@ -36,7 +36,7 @@ const StyledArtGrid = styled(Grid)`
                 margin-top: 0;
                 order: -1;
                 height: 30vh;
-                min-height: 20rem;
+                min-height: 30rem;
             }
             &--content {
                 padding-top: 2rem;
