@@ -16,16 +16,17 @@ const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
     height: auto;
     position: relative;
     min-height: 30rem;
+    overflow: hidden;
     h1 {
         z-index: 2;
         text-transform: uppercase;
         letter-spacing: 0.75rem;
         color: var(--white);
-        font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
+        font-size: clamp(3.2rem, 4vw + 1rem, 5.2rem);
         font-family: var(--font-highlight);
         text-align: center;
         line-height: 5rem;
-        padding: 5rem 0;
+        padding: 5rem 0 2rem;
         &.header-title {
             &__home {
                 margin-top: 0;
@@ -52,11 +53,12 @@ const StyledHeader = styled.header<{ isFrontPage?: boolean }>`
 `;
 const StyledPreTitle = styled.h2`
     position: absolute;
-    bottom: 10rem;
+    bottom: 5rem;
     font-family: var(--font-cursive);
-    font-size: clamp(6rem, 4vw + 1rem, 8rem);
+    font-size: clamp(8rem, 8vw + 1rem, 12rem);
     color: var(--white);
     opacity: 0.2;
+    text-align: center;
 `;
 interface Props {
     featuredImage?: Maybe<NodeWithFeaturedImageToMediaItemConnectionEdge>;

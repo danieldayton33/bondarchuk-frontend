@@ -38,6 +38,17 @@ export async function getPage({ uri = '' }) {
                         }
                     }
                     ...PageSectionFragment
+                    ... on Post {
+                        title
+                        content
+                        date
+                        slug
+                        seo {
+                            title
+                            metaDesc
+                            fullHead
+                        }
+                    }
                 }
             }
             ${PageSectionFragment}

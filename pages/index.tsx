@@ -12,7 +12,7 @@ import Grid from '../components/Grid';
 import Container from '../components/Container';
 
 interface Props {
-    pageData: Array<PageType>;
+    pageData: PageType;
     menuItems: Array<MenuItem>;
     themeSettings: ThemeSettings_Themesettings;
 }
