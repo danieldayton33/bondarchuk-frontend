@@ -33,12 +33,13 @@ const StyledArtGrid = styled(Grid)`
         }
         @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
             &--image {
-                margin-top: 5rem;
+                margin-top: 0;
                 order: -1;
-                height: 50vh;
+                height: 30vh;
+                min-height: 20rem;
             }
             &--content {
-                padding-top: 3rem;
+                padding-top: 2rem;
             }
             .excerpt {
                 max-width: 100%;
